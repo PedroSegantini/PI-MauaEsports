@@ -2,16 +2,20 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+// Carregar variáveis de ambiente
+dotenv.config();
 
 const app = express();
 
 // Configuração do Axios
 const apiEsports = axios.create({
-  baseURL: 'https://API-Esports.lcstuber.net',
+  baseURL: process.env.APIESPORTS_URL,
   timeout: 5000, // Tempo máximo de espera em milissegundos
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer frontendmauaesports'
+    'Authorization': process.env.API_TOKEN
   }
 });
 
@@ -30,7 +34,7 @@ app.use(express.json());
 // função para conectar o MongoDB
 async function conectarMongoDB() {
   try {
-    const MONGODB_URL = 'mongodb+srv://mauaesportsdb:m67rmsnuEz0onzFS@mauaesportsdb.5xhl515.mongodb.net/?retryWrites=true&w=majority&appName=MauaEsportsDB';
+    const MONGODB_URL = process.env.MONGODB_URL;
 
     await mongoose.connect(MONGODB_URL);
     
