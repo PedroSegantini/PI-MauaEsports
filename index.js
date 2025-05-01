@@ -56,11 +56,10 @@ async function testeApi() {
   try {
     const res = await apiEsports.get('/modality/all');
     
-    if(res.statusText === 'OK') {
+    if(res.status !== 401) {
       console.log(`Teste de envio de req Funcionou! Status Code: ${res.status}`);
-    } else {
-      console.log(`Não funcionou, status text: ${res.statusText}\nStatus code: ${res.status}`);
-    }
+      
+    } 
     
   } catch (error) {
     console.error('Erro na requisição:', error.message);

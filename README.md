@@ -10,19 +10,21 @@ API backend para o projeto Mauá Esports, desenvolvida com Node.js, Express e Mo
 - **Mongoose** - ODM (Object Data Modeling) para MongoDB
 - **Axios** - Cliente HTTP para fazer requisições
 - **CORS** - Middleware para habilitar Cross-Origin Resource Sharing
+- **dotenv** - Gerenciamento de variáveis de ambiente
+- **nodemon** - Reinício automático do servidor em desenvolvimento
 
 ## Configuração
 
 1. Clone o repositório
 2. Instale as dependências:
 ```bash
-npm install
+npm install express mongoose cors axios dotenv nodemon --save
 ```
 
 3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 ```env
 PORT=3000
-MONGODB_URI=sua_url_do_mongodb
+MONGODB_URL=sua_url_do_mongodb
 ```
 
 ## Estrutura do Projeto
@@ -52,6 +54,12 @@ api-mauaesports/
 
 ## Como Rodar
 
+Para desenvolvimento:
+```bash
+npm run dev
+```
+
+Para produção:
 ```bash
 npm start
 ```
