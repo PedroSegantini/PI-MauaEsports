@@ -478,8 +478,15 @@ body {
 /* ? TIME */
 .team {
   background-color: #f8d1ae;
-  padding: 5rem 0;
+  padding: 2rem 0;
   height: 54rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.team_title {
+  margin-bottom: 1.5rem;
 }
 
 .team_title h1 {
@@ -493,8 +500,16 @@ body {
   -webkit-text-fill-color: transparent;
   -moz-text-fill-color: transparent;
   text-transform: uppercase;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   text-align: center;
+}
+
+.team_title p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: rgb(36, 36, 36);
+  margin-bottom: 0.5rem;
 }
 
 .team_container {
@@ -530,42 +545,116 @@ body {
   justify-content: center;
 }
 
-@media screen and (max-width: 1100px) {
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.header h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.header p {
+  font-size: 16px;
+  color: #cccccc;
+}
+
+.games-container {
+  flex: 1;
+  padding: 0 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.game-card {
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background-color: #2a2a3a;
+  height: 100%;
+}
+
+.game-card:hover {
+  transform: scale(1.05);
+}
+
+.game-image {
+  position: relative;
+  aspect-ratio: 1/1;
+  height: 100%;
+}
+
+.game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.game-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 15px;
+}
+
+.game-title h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 1100px) {
   .team {
-    height: 100%;
+    height: auto;
+    min-height: 54rem;
+    padding-bottom: 2rem;
   }
 
-  .team_content {
-    text-align: center;
-    justify-content: center;
-    margin-bottom: 4rem;
-  }
-
-  .team_content h1 {
-    font-size: 3rem;
-    margin-top: 2rem;
-  }
-
-  .team_content h3 {
-    font-size: 1rem;
+  .games-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media screen and (max-width: 511px) {
+@media (max-width: 768px) {
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .team_title h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 511px) {
   .team_title h1 {
     font-size: 2.2rem;
   }
+
+  .games-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 }
 
-@media screen and (max-width: 480px) {
-  .team_content h1 {
-    font-size: 2rem;
-    margin-top: 3rem;
-  }
-
-  .team_content h3 {
-    font-size: 1rem;
-    text-align: center;
+@media (max-width: 480px) {
+  .games-grid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
