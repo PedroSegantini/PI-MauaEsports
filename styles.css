@@ -321,7 +321,7 @@ body {
 .main {
   background-color: #ffffff;
   padding: 5rem 0;
-  height: 57rem;
+  height: 60rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -415,6 +415,69 @@ body {
   justify-content: center;
 }
 
+/* Novo layout para a seção principal */
+.main {
+  background-color: #ffffff;
+  padding: 5rem 0;
+  min-height: 60rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main_container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 8rem;
+}
+
+.main_content_left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.main_content_right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.main_text p {
+  font-size: 1.1rem;
+  color: #333;
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+/* Responsividade para o novo layout */
+@media screen and (max-width: 960px) {
+  .main_container {
+    flex-direction: column;
+  }
+
+  .main_content_left,
+  .main_content_right {
+    width: 100%;
+  }
+
+  .main {
+    height: auto;
+    min-height: auto;
+    padding-bottom: 3rem;
+  }
+}
+
 @media screen and (max-width: 1207px) {
   .main_container {
     display: block;
@@ -479,7 +542,7 @@ body {
 .team {
   background-color: #f8d1ae;
   padding: 2rem 0;
-  height: 54rem;
+  height: 60rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -519,7 +582,6 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  height: 90%;
   z-index: 1;
   width: 100%;
   padding: 0 50px;
@@ -592,7 +654,7 @@ body {
 
 .game-image {
   position: relative;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1 / 1;
   height: 100%;
 }
 
@@ -662,7 +724,9 @@ body {
 .camp {
   background-color: #e2f096;
   padding: 5rem 0;
-  height: 54rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .camp_title h1 {
@@ -711,6 +775,55 @@ body {
 .camp_text {
   text-align: center;
   justify-content: center;
+}
+
+.championships-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: -30px;
+}
+
+.championships-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.championship-card {
+  border: 2px solid #0b256c;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  background-color: #ffffff;
+  height: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.championship-content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* responsividade */
+@media (max-width: 1100px) {
+  .championships-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .championships-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media screen and (max-width: 1100px) {
