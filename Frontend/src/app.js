@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Navbar brand control for mobile menu
+  const navbarToggler = document.querySelector(".navbar-toggler");
+  const navbarBrand = document.querySelector(".navbar-brand");
+  const navbarCollapse = document.querySelector(".navbar-collapse");
+
+  navbarToggler.addEventListener("click", function () {
+    navbarBrand.classList.toggle("mobile-hidden");
+  });
+
   // Smooth scroll for navigation links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
@@ -9,9 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
           behavior: "smooth",
         });
         // Close mobile menu if open
-        const navbarCollapse = document.querySelector(".navbar-collapse");
         if (navbarCollapse.classList.contains("show")) {
           navbarCollapse.classList.remove("show");
+          navbarBrand.classList.remove("mobile-hidden");
         }
       }
     });
