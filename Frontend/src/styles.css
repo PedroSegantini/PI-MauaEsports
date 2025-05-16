@@ -1,8 +1,10 @@
+/* Imports */
 @import url(https://db.onlinewebfonts.com/c/6a6c946c81961ceab1711da6da2b26af?family=AkiraExpanded-SuperBold);
-
 @import url(https://db.onlinewebfonts.com/c/7a9ddc1b445c1713f7ad1cf3de47edd7?family=Agency+FB);
 
+/* Variáveis Globais */
 :root {
+  /* Cores */
   --color-bg: #040d1d;
   --color-primary: #00cdff;
   --color-primary-nav: #08b4df;
@@ -13,7 +15,10 @@
   --color-btn-primary: #ffb800;
   --color-btn-hover: #cc9300;
 
-  /* Font Sizes */
+  --color-primary-nav-transparent: hsla(192, 93%, 45%, 0.401);
+  --color-logo1-transparent: rgba(30, 59, 114, 0.401);
+
+  /* Tipografia */
   --font-size-xs: 9pt;
   --font-size-sm: 10pt;
   --font-size-base: 12pt;
@@ -24,6 +29,7 @@
   --font-size-3xl: 32pt;
 }
 
+/* Reset Global */
 *,
 *::before,
 *::after {
@@ -32,20 +38,7 @@
   box-sizing: border-box;
 }
 
-/* Classe padrão para textos */
-.text-default {
-  color: var(--color-p);
-  font-size: var(--font-size-lg);
-  line-height: 1.6;
-}
-
-/* Classe para textos maiores em branco */
-.text-large {
-  color: var(--color-border);
-  font-size: var(--font-size-xl);
-  line-height: 1.6;
-}
-
+/* Estilos Base */
 html,
 body {
   height: 100%;
@@ -67,17 +60,57 @@ h6 {
   color: var(--color-primary);
 }
 
-/* Navbar Styles */
+/* Classes Utilitárias */
+.text-default,
+.text-large {
+  line-height: 1.6;
+}
+
+.text-default {
+  color: var(--color-p);
+  font-size: var(--font-size-lg);
+}
+
+.text-large {
+  color: var(--color-border);
+  font-size: var(--font-size-xl);
+}
+
+/* Navegação */
 .navbar {
+  position: fixed;
+  width: 100%;
+  background-color: var(--color-logo1);
+  padding: 0.5rem 0;
+  z-index: 999999;
+  transition: all 0.5s ease;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(
     90deg,
     var(--color-logo1),
     var(--color-primary-nav),
     var(--color-logo1)
   );
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
 
-  padding: 0.5rem 0;
-  z-index: 999999;
+.navbar.rolagem {
+  
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.navbar.rolagem::before {
+  opacity: 0.5;
 }
 
 .navbar-brand img {
@@ -107,15 +140,16 @@ h6 {
   margin: 0.5rem 0;
 }
 
+/* Botões */
 .btn-primary {
-  color: var(--color-bg);
+  color: var(--color-logo1);
   background-color: var(--color-btn-primary);
   border-color: var(--color-btn-primary);
   transition: all 0.3s ease;
   padding: 0.5rem 1.5rem;
   font-family: "Agency FB", sans-serif;
   font-size: var(--font-size-lg);
-  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .btn-primary:hover {
@@ -124,7 +158,7 @@ h6 {
   color: var(--color-bg);
 }
 
-/* Section Heights */
+/* Layout das Seções */
 #hero,
 #times {
   min-height: 100vh;
@@ -137,7 +171,8 @@ h6 {
   width: 100%;
   padding: 2rem 0;
 }
-/* Hero Section */
+
+/* Seção Hero */
 #hero {
   background-color: var(--color-bg);
 }
@@ -147,7 +182,7 @@ h6 {
   margin-top: 2rem;
 }
 
-/* Instagram Widget */
+/* Widget Instagram */
 .instagram-embed {
   border: 1px solid var(--color-border);
   border-radius: 10px;
@@ -191,15 +226,25 @@ h6 {
   object-fit: cover;
 }
 
-/* Times Section */
-.bg-degrade {
+/* Seção Times */
+.bg-degrade-upper,
+.bg-degrade-lower {
   background: linear-gradient(
     135deg,
-    rgba(4, 13, 29, 0.95) 0%,
-    rgba(0, 205, 255, 0.1) 100%
+    rgba(4, 13, 29, 1) 0%,
+    rgba(0, 204, 255, 0.2) 100%
   );
 }
 
+.bg-degrade-lower {
+  background: linear-gradient(
+    45deg,
+    rgba(4, 13, 29, 1) 0%,
+    rgba(0, 205, 255, 0.2) 100%
+  );
+}
+
+/* Cards dos Times */
 .game-card {
   background-color: var(--color-bg);
   border: 1px solid var(--color-btn-hover);
@@ -219,10 +264,7 @@ h6 {
 .game-card::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: linear-gradient(
     to bottom,
     rgba(4, 13, 29, 0) 0%,
@@ -245,30 +287,26 @@ h6 {
   justify-content: center;
 }
 
-.cards-championships{
-  margin-top: .5rem;
+.cards-championships {
+  margin-top: 0.5rem;
 }
 
+/* Backgrounds dos Cards */
 .game-card-lol {
   background-image: url("img/lol.webp");
 }
-
 .game-card-tft {
   background-image: url("img/tft.jpg");
 }
-
 .game-card-valorant {
   background-image: url("img/valorant.jpg");
 }
-
 .game-card-cs2 {
   background-image: url("img/cs2.webp");
 }
-
 .game-card-eafc {
   background-image: url("img/eafc24.avif");
 }
-
 .game-card-rocket {
   background-image: url("img/rocketleague.jpg");
 }
@@ -283,7 +321,7 @@ h6 {
   text-align: left;
 }
 
-/* Campeonatos Section */
+/* Seção Campeonatos */
 .bg-degrade-2 {
   background: linear-gradient(
     135deg,
@@ -312,7 +350,7 @@ h6 {
   padding: 2rem 0;
 }
 
-.text-footer{
+.text-footer {
   font-size: var(--font-size-lg);
 }
 
@@ -342,10 +380,9 @@ h6 {
 .social-icon:hover {
   color: var(--color-border);
   transform: scale(1.2);
-  
 }
 
-/* Responsive Design */
+/* Responsividade */
 @media (max-width: 991.98px) {
   .navbar {
     padding: 1rem 0;
@@ -361,22 +398,18 @@ h6 {
   }
 
   #hero {
-    padding-top: 100px; /* Aumentando o espaço para o título não ficar embaixo da navbar */
+    padding-top: 100px;
   }
 
   .game-card {
-    height: 200px; /* Reduzindo altura dos cards de jogos no mobile */
+    height: 200px;
   }
 
   .championship-card {
-    min-height: 150px; /* Reduzindo altura dos cards de campeonatos no mobile */
+    min-height: 150px;
   }
 
-  /* Quando o menu mobile está aberto, esconde a logo */
-  .navbar-collapse.show + .navbar-brand {
-    display: none;
-  }
-
+  .navbar-collapse.show + .navbar-brand,
   .navbar-brand.mobile-hidden {
     display: none;
   }
@@ -402,23 +435,19 @@ h6 {
   }
 
   .game-card {
-    height: 180px; /* Reduzindo ainda mais para telas muito pequenas */
+    height: 180px;
   }
 
   .championship-card {
-    min-height: 120px; /* Reduzindo ainda mais para telas muito pequenas */
+    min-height: 120px;
   }
 
   #hero h1 {
-    font-size: var(
-      --font-size-2xl
-    ); /* Reduzindo tamanho do título em telas pequenas */
+    font-size: var(--font-size-2xl);
   }
 
   .team-description {
-    font-size: var(
-      --font-size-md
-    ); 
+    font-size: var(--font-size-md);
   }
 
   .linktree {
