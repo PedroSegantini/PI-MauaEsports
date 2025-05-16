@@ -15,7 +15,7 @@ const apiEsports = axios.create({
   timeout: 5000, // Tempo máximo de espera em milissegundos
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': process.env.API_TOKEN
+    'Authorization': process.env.APIESPORTS_TOKEN
   }
 });
 
