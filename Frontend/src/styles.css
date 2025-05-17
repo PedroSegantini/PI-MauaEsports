@@ -13,10 +13,7 @@
   --color-logo1: #1e3c72;
   --color-logo2: #2a5298;
   --color-btn-primary: #ffb800;
-  --color-btn-hover: #cc9300;
-
-  --color-primary-nav-transparent: hsla(192, 93%, 45%, 0.401);
-  --color-logo1-transparent: rgba(30, 59, 114, 0.401);
+  --color-btn-hover: #b48100;
 
   /* Tipografia */
   --font-size-xs: 9pt;
@@ -76,6 +73,55 @@ h6 {
   font-size: var(--font-size-xl);
 }
 
+/* Botões */
+.btn-primary {
+  color: var(--color-logo1);
+  background-color: var(--color-btn-primary);
+  border-color: var(--color-btn-primary);
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.5rem;
+  font-family: "Agency FB", sans-serif;
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-btn-hover);
+  border-color: var(--color-btn-hover);
+  color: var(--color-bg);
+}
+
+.btn-primary:active {
+  background: none !important;
+  border-color: var(--color-btn-primary) !important;
+  color: var(--color-btn-primary) !important;
+}
+
+/* degrade background */
+.bg-degrade-upper {
+  background: linear-gradient(
+    135deg,
+    rgba(4, 13, 29, 1) 0%,
+    rgba(0, 204, 255, 0.2) 100%
+  );
+}
+
+.bg-degrade-lower {
+  background: linear-gradient(
+    50deg,
+    rgba(4, 13, 29, 1) 0%,
+    rgba(0, 204, 255, 0.2) 100%
+  );
+}
+
+.bg-degrade-2 {
+  background: linear-gradient(
+    0deg,
+    rgba(4, 13, 29, 0.616) 20%,
+    rgba(2, 15, 37, 0.116) 100%
+  );
+}
+
 /* Navegação */
 .navbar {
   position: fixed;
@@ -85,7 +131,7 @@ h6 {
   z-index: 999999;
   transition: all 0.5s ease;
 }
-
+/* efeito scroll transparente */
 .navbar::before {
   content: "";
   position: absolute;
@@ -99,12 +145,11 @@ h6 {
     var(--color-primary-nav),
     var(--color-logo1)
   );
-  transition: opacity 0.5s ease;
+  transition: opacity 0.3s ease;
   z-index: -1;
 }
 
 .navbar.rolagem {
-  
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(3px);
 }
@@ -112,6 +157,7 @@ h6 {
 .navbar.rolagem::before {
   opacity: 0.5;
 }
+/*fim do efeito scroll */
 
 .navbar-brand img {
   transition: transform 0.3s ease;
@@ -140,24 +186,6 @@ h6 {
   margin: 0.5rem 0;
 }
 
-/* Botões */
-.btn-primary {
-  color: var(--color-logo1);
-  background-color: var(--color-btn-primary);
-  border-color: var(--color-btn-primary);
-  transition: all 0.3s ease;
-  padding: 0.5rem 1.5rem;
-  font-family: "Agency FB", sans-serif;
-  font-size: var(--font-size-lg);
-  font-weight: bold;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-btn-hover);
-  border-color: var(--color-btn-hover);
-  color: var(--color-bg);
-}
-
 /* Layout das Seções */
 #hero,
 #times {
@@ -167,7 +195,7 @@ h6 {
 }
 
 #campeonatos {
-  min-height: 50dvh;
+  min-height: 55dvh;
   width: 100%;
   padding: 2rem 0;
 }
@@ -227,22 +255,6 @@ h6 {
 }
 
 /* Seção Times */
-.bg-degrade-upper,
-.bg-degrade-lower {
-  background: linear-gradient(
-    135deg,
-    rgba(4, 13, 29, 1) 0%,
-    rgba(0, 204, 255, 0.2) 100%
-  );
-}
-
-.bg-degrade-lower {
-  background: linear-gradient(
-    45deg,
-    rgba(4, 13, 29, 1) 0%,
-    rgba(0, 205, 255, 0.2) 100%
-  );
-}
 
 /* Cards dos Times */
 .game-card {
@@ -281,6 +293,15 @@ h6 {
   z-index: 2;
 }
 
+
+
+.card-body-championship{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .cards-teams,
 .cards-championships {
   display: flex;
@@ -293,25 +314,25 @@ h6 {
 
 /* Backgrounds dos Cards */
 .game-card-lol {
-  background-image: url("img/lol.webp");
+  background-image: url("img/teams/lol.webp");
 }
 .game-card-tft {
-  background-image: url("img/tft.jpg");
+  background-image: url("img/teams/tft.jpg");
 }
 .game-card-valorant {
-  background-image: url("img/valorant.jpg");
+  background-image: url("img/teams/valorant.jpg");
 }
 .game-card-cs2 {
-  background-image: url("img/cs2.webp");
+  background-image: url("img/teams/cs2.webp");
 }
 .game-card-eafc {
-  background-image: url("img/eafc24.avif");
+  background-image: url("img/teams/eafc24.avif");
 }
 .game-card-rocket {
-  background-image: url("img/rocketleague.jpg");
+  background-image: url("img/teams/rocketleague.jpg");
 }
 .game-card-r6 {
-  background-image: url("img/r6.webp");
+  background-image: url("img/teams/r6.webp");
 }
 
 .game-card .card-title {
@@ -322,26 +343,57 @@ h6 {
 }
 
 /* Seção Campeonatos */
-.bg-degrade-2 {
-  background: linear-gradient(
-    135deg,
-    rgba(4, 13, 29, 0.95) 0%,
-    rgba(46, 204, 113, 0.1) 100%
-  );
-}
 
 .championship-card {
+  
+
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
-  min-height: 200px;
+  min-height: 10dvh;
+  padding: 1rem;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .championship-card .card-title {
   color: var(--color-border);
   text-align: center;
+}
+
+.campeonatos_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background-color: var(--color-logo1);
+}
+
+.circuit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("img/bg/circuit-board.svg");
+  background-repeat: repeat;
+  mix-blend-mode: soft-light;
+  opacity: .35;
+}
+
+.square {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: soft-light;
+  background-image: url("img/bg/noise.webp");
+  background-repeat: repeat;
+  opacity: .3;
 }
 
 /* Footer */
