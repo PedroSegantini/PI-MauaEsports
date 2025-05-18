@@ -7,8 +7,9 @@
   /* Cores */
   --color-bg: #040d1d;
   --color-primary: #00cdff;
-  --color-primary-nav: #08b4df;
-  --color-border: #ffffff;
+  --color-primary-nav: #08b4dfdc;
+  --color-white: #ffffff;
+  --color-border: #1c68a7;
   --color-p: #cccccc;
   --color-logo1: #1e3c72;
   --color-logo2: #2a5298;
@@ -42,7 +43,7 @@ body {
   font-family: "Agency FB", sans-serif;
   background-color: var(--color-bg);
   scroll-behavior: smooth;
-  color: var(--color-border);
+  color: var(--color-white);
   scroll-padding-top: 3rem;
 }
 
@@ -69,7 +70,7 @@ h6 {
 }
 
 .text-large {
-  color: var(--color-border);
+  color: var(--color-white);
   font-size: var(--font-size-xl);
 }
 
@@ -101,23 +102,23 @@ h6 {
 .bg-degrade-upper {
   background: linear-gradient(
     135deg,
-    rgba(4, 13, 29, 1) 0%,
-    rgba(0, 204, 255, 0.2) 100%
+    rgba(15, 50, 109, 0.658) 0%,
+    rgba(0, 204, 255, 0.336) 100%
   );
 }
 
 .bg-degrade-lower {
   background: linear-gradient(
     50deg,
-    rgba(4, 13, 29, 1) 0%,
-    rgba(0, 204, 255, 0.2) 100%
+    rgba(15, 50, 109, 0.658) 0%,
+    rgba(0, 204, 255, 0.336) 100%
   );
 }
 
 .bg-degrade-2 {
   background: linear-gradient(
     0deg,
-    rgba(4, 13, 29, 0.616) 20%,
+    rgba(4, 13, 29, 0.555) 0%,
     rgba(2, 15, 37, 0.116) 100%
   );
 }
@@ -155,7 +156,7 @@ h6 {
 }
 
 .navbar.rolagem::before {
-  opacity: 0.5;
+  opacity: 0.67;
 }
 /*fim do efeito scroll */
 
@@ -168,7 +169,7 @@ h6 {
 }
 
 .nav-link {
-  color: var(--color-border) !important;
+  color: var(--color-white) !important;
   font-family: "Agency FB", sans-serif;
   font-size: var(--font-size-lg);
   transition: color 0.3s ease;
@@ -198,6 +199,9 @@ h6 {
   min-height: 55dvh;
   width: 100%;
   padding: 2rem 0;
+
+  border-top: 2px solid var(--color-border);
+  border-bottom: 2px solid var(--color-border);
 }
 
 /* Seção Hero */
@@ -206,13 +210,13 @@ h6 {
 }
 
 .team-name {
-  color: var(--color-border);
+  color: var(--color-white);
   margin-top: 2rem;
 }
 
 /* Widget Instagram */
 .instagram-embed {
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-white);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -237,7 +241,7 @@ h6 {
 }
 
 .profile-name {
-  color: var(--color-border);
+  color: var(--color-white);
   font-weight: bold;
 }
 
@@ -293,9 +297,7 @@ h6 {
   z-index: 2;
 }
 
-
-
-.card-body-championship{
+.card-body-championship {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -336,7 +338,7 @@ h6 {
 }
 
 .game-card .card-title {
-  color: var(--color-border);
+  color: var(--color-white);
   font-size: var(--font-size-base);
   margin: 0;
   text-align: left;
@@ -345,10 +347,8 @@ h6 {
 /* Seção Campeonatos */
 
 .championship-card {
-  
-
   background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-white);
   min-height: 10dvh;
   padding: 1rem;
   display: flex;
@@ -357,7 +357,7 @@ h6 {
 }
 
 .championship-card .card-title {
-  color: var(--color-border);
+  color: var(--color-white);
   text-align: center;
 }
 
@@ -381,7 +381,7 @@ h6 {
   background-image: url("img/bg/circuit-board.svg");
   background-repeat: repeat;
   mix-blend-mode: soft-light;
-  opacity: .35;
+  opacity: 0.35;
 }
 
 .square {
@@ -393,7 +393,7 @@ h6 {
   mix-blend-mode: soft-light;
   background-image: url("img/bg/noise.webp");
   background-repeat: repeat;
-  opacity: .3;
+  opacity: 0.3;
 }
 
 /* Footer */
@@ -414,7 +414,7 @@ h6 {
 }
 
 .linktree-link:hover {
-  color: var(--color-border);
+  color: var(--color-white);
 }
 
 .social-icons {
@@ -430,7 +430,7 @@ h6 {
 }
 
 .social-icon:hover {
-  color: var(--color-border);
+  color: var(--color-white);
   transform: scale(1.2);
 }
 
