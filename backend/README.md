@@ -29,7 +29,7 @@ npm install
 npm run dev
 ```
 
-3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+5. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
 ```env
 PORT=3000
 MONGODB_URL=mongodb+srv://<seu-usuario>:<sua-senha>@cluster0.mongodb.net/mauaesports-db
