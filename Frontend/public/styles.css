@@ -1,0 +1,515 @@
+/* Imports */
+@import url(https://db.onlinewebfonts.com/c/6a6c946c81961ceab1711da6da2b26af?family=AkiraExpanded-SuperBold);
+@import url(https://db.onlinewebfonts.com/c/7a9ddc1b445c1713f7ad1cf3de47edd7?family=Agency+FB);
+
+/* Variáveis Globais */
+:root {
+  /* Cores */
+  --color-bg: #040d1d;
+  --color-primary: #00cdff;
+  --color-primary-nav: #08b4dfdc;
+  --color-white: #ffffff;
+  --color-border: #1c68a7;
+  --color-p: #cccccc;
+  --color-logo1: #1e3c72;
+  --color-logo2: #2a5298;
+  --color-btn-primary: #ffb800;
+  --color-btn-hover: #b48100;
+
+  /* Tipografia */
+  --font-size-xs: 9pt;
+  --font-size-sm: 10pt;
+  --font-size-base: 12pt;
+  --font-size-md: 14pt;
+  --font-size-lg: 16pt;
+  --font-size-xl: 18pt;
+  --font-size-2xl: 24pt;
+  --font-size-3xl: 32pt;
+}
+
+/* Reset Global */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos Base */
+html,
+body {
+  height: 100%;
+  font-family: "Agency FB", sans-serif;
+  background-color: var(--color-bg);
+  scroll-behavior: smooth;
+  color: var(--color-white);
+  scroll-padding-top: 3rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "AkiraExpanded-SuperBold", sans-serif;
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+/* Classes Utilitárias */
+.text-default,
+.text-large {
+  line-height: 1.6;
+}
+
+.text-default {
+  color: var(--color-p);
+  font-size: var(--font-size-lg);
+}
+
+.text-large {
+  color: var(--color-white);
+  font-size: var(--font-size-xl);
+}
+
+/* Botões */
+.btn-primary {
+  color: var(--color-logo1);
+  background-color: var(--color-btn-primary);
+  border-color: var(--color-btn-primary);
+  transition: all 0.3s ease;
+  padding: 0.5rem 1.5rem;
+  font-family: "Agency FB", sans-serif;
+  font-size: var(--font-size-lg);
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-btn-hover);
+  border-color: var(--color-btn-hover);
+  color: var(--color-bg);
+}
+
+.btn-primary:active {
+  background: none !important;
+  border-color: var(--color-btn-primary) !important;
+  color: var(--color-btn-primary) !important;
+}
+
+/* degrade background */
+.bg-degrade-upper {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 50, 109, 0.658) 0%,
+    rgba(0, 204, 255, 0.336) 100%
+  );
+}
+
+.bg-degrade-lower {
+  background: linear-gradient(
+    50deg,
+    rgba(15, 50, 109, 0.658) 0%,
+    rgba(0, 204, 255, 0.336) 100%
+  );
+}
+
+.bg-degrade-2 {
+  background: linear-gradient(
+    0deg,
+    rgba(4, 13, 29, 0.555) 0%,
+    rgba(2, 15, 37, 0.116) 100%
+  );
+}
+
+/* Navegação */
+.navbar {
+  position: fixed;
+  width: 100%;
+  background-color: var(--color-logo1);
+  padding: 0.5rem 0;
+  z-index: 999999;
+  transition: all 0.5s ease;
+}
+/* efeito scroll transparente */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-logo1),
+    var(--color-primary-nav),
+    var(--color-logo1)
+  );
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.navbar.rolagem {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.navbar.rolagem::before {
+  opacity: 0.67;
+}
+/*fim do efeito scroll */
+
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+.nav-link {
+  color: var(--color-white) !important;
+  font-family: "Agency FB", sans-serif;
+  font-size: var(--font-size-lg);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-btn-primary) !important;
+}
+
+.navbar-nav {
+  gap: 1rem;
+}
+
+#navbarNav {
+  margin: 0.5rem 0;
+}
+
+/* Layout das Seções */
+#hero,
+#times {
+  min-height: 100vh;
+  width: 100%;
+  padding: 1.5rem 0;
+}
+
+#campeonatos {
+  min-height: 55dvh;
+  width: 100%;
+  padding: 2rem 0;
+
+  border-top: 2px solid var(--color-border);
+  border-bottom: 2px solid var(--color-border);
+}
+
+/* Seção Hero */
+#hero {
+  background-color: var(--color-bg);
+}
+
+.team-name {
+  color: var(--color-white);
+  margin-top: 2rem;
+}
+
+/* Widget Instagram */
+.instagram-embed {
+  border: 1px solid var(--color-white);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.instagram-embed .card {
+  background-color: var(--color-bg);
+  border: none;
+}
+
+.instagram-embed .card-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--color-bg);
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.profile-name {
+  color: var(--color-white);
+  font-weight: bold;
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  padding: 2px;
+}
+
+.instagram-grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+/* Seção Times */
+
+/* Cards dos Times */
+.game-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-btn-hover);
+  transition: all 0.3s ease;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+.game-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(4, 13, 29, 0) 0%,
+    rgba(4, 13, 29, 0.8) 80%
+  );
+  z-index: 1;
+}
+
+.game-card .card-body {
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.card-body-championship {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards-teams,
+.cards-championships {
+  display: flex;
+  justify-content: center;
+}
+
+.cards-championships {
+  margin-top: 0.5rem;
+}
+
+/* Backgrounds dos Cards */
+.game-card-lol {
+  background-image: url("img/teams/lol.webp");
+}
+.game-card-tft {
+  background-image: url("img/teams/tft.jpg");
+}
+.game-card-valorant {
+  background-image: url("img/teams/valorant.jpg");
+}
+.game-card-cs2 {
+  background-image: url("img/teams/cs2.webp");
+}
+.game-card-eafc {
+  background-image: url("img/teams/eafc24.avif");
+}
+.game-card-rocket {
+  background-image: url("img/teams/rocketleague.jpg");
+}
+.game-card-r6 {
+  background-image: url("img/teams/r6.webp");
+}
+
+.game-card .card-title {
+  color: var(--color-white);
+  font-size: var(--font-size-base);
+  margin: 0;
+  text-align: left;
+}
+
+/* Seção Campeonatos */
+
+.championship-card {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-white);
+  min-height: 10dvh;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.championship-card .card-title {
+  color: var(--color-white);
+  text-align: center;
+}
+
+.campeonatos_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background-color: var(--color-logo1);
+}
+
+.circuit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("img/bg/circuit-board.svg");
+  background-repeat: repeat;
+  mix-blend-mode: soft-light;
+  opacity: 0.35;
+}
+
+.square {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  mix-blend-mode: soft-light;
+  background-image: url("img/bg/noise.webp");
+  background-repeat: repeat;
+  opacity: 0.3;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--color-bg);
+  padding: 2rem 0;
+}
+
+.text-footer {
+  font-size: var(--font-size-lg);
+}
+
+.linktree-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-size: var(--font-size-lg);
+  transition: color 0.3s ease;
+}
+
+.linktree-link:hover {
+  color: var(--color-white);
+}
+
+.social-icons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.social-icon {
+  color: var(--color-primary);
+  font-size: var(--font-size-2xl);
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  color: var(--color-white);
+  transform: scale(1.2);
+}
+
+/* Responsividade */
+@media (max-width: 991.98px) {
+  .navbar {
+    padding: 1rem 0;
+  }
+
+  .navbar-collapse {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .navbar-brand {
+    margin: 0 !important;
+  }
+
+  #hero {
+    padding-top: 100px;
+  }
+
+  .game-card {
+    height: 200px;
+  }
+
+  .championship-card {
+    min-height: 150px;
+  }
+
+  .navbar-collapse.show + .navbar-brand,
+  .navbar-brand.mobile-hidden {
+    display: none;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .social-icons {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .text-default {
+    font-size: var(--font-size-md);
+  }
+
+  .text-large {
+    font-size: var(--font-size-lg);
+  }
+
+  .linktree-link {
+    text-align: center;
+    display: block;
+  }
+
+  .game-card {
+    height: 180px;
+  }
+
+  .championship-card {
+    min-height: 120px;
+  }
+
+  #hero h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .team-description {
+    font-size: var(--font-size-md);
+  }
+
+  .linktree {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.form-label {
+  color: rgb(0, 184, 216);
+  font-size: larger;
+}
