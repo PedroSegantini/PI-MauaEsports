@@ -508,3 +508,8 @@ h6 {
     flex-direction: column;
   }
 }
+
+.form-label{
+            color: rgb(0, 184, 216);
+            font-size: larger;
+}

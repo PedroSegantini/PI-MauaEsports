@@ -2,21 +2,25 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import axios from "axios";
-import Content from "./models/Content.js";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
-// Environment variables defined directly in code
+import Content from "./models/Content.js";
+import Player from "./models/Player.js"; // <-- IMPORTAR O NOVO MODELO
+
+// Environment variables
 const PORT = 3000;
 const APIESPORTS_URL = "https://API-Esports.lcstuber.net/";
 const APIESPORTS_TOKEN = "Bearer frontendmauaesports";
-const MONGODB_URL =
-  "mongodb+srv://mauaesportsbd:CDM9fi53PE83cMxI@cluster0.ib4qqro.mongodb.net/mauaesports-db?retryWrites=true&w=majority";
+const MONGODB_URL = "mongodb+srv://mauaesportsbd:CDM9fi53PE83cMxI@cluster0.ib4qqro.mongodb.net/mauaesports-db?retryWrites=true&w=majority";
+const JWT_SECRET = "sua_chave_secreta_super_segura_aqui"; // <-- Adicione uma chave secreta
 
 const app = express();
 
-// Configuração do Axios
+// Configuração do Axios para a API externa
 const apiEsports = axios.create({
   baseURL: APIESPORTS_URL,
-  timeout: 5000,
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
     Authorization: APIESPORTS_TOKEN,
@@ -28,13 +32,11 @@ const corsOptions = {
   origin: "*",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
 };
-
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Função para conectar o MongoDB
+// Função de Conexão com MongoDB (mantida)
 async function conectarMongoDB() {
   try {
     await mongoose.connect(MONGODB_URL);
@@ -45,80 +47,193 @@ async function conectarMongoDB() {
   }
 }
 
-// --- || ---
-// --- || ---
+// --- || INÍCIO DAS NOVAS ROTAS DE AUTENTICAÇÃO E JOGADORES || ---
 
-// ROTAS
+// Middleware de Autenticação com JWT
+const protect = async (req, res, next) => {
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, JWT_SECRET);
+      req.user = await Player.findById(decoded.id).select('-password');
+      next();
+    } catch (error) {
+      res.status(401).json({ message: 'Não autorizado, token falhou' });
+    }
+  }
+  if (!token) {
+    res.status(401).json({ message: 'Não autorizado, sem token' });
+  }
+};
 
+// Middleware para verificar se é Admin
+const admin = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ message: 'Acesso negado, somente admins' });
+  }
+};
+
+
+// ROTA POST para registrar um novo jogador (só para admins)
+app.post("/api/players", protect, admin, async (req, res) => {
+    const { name, ra, discordId, password, role } = req.body;
+    try {
+        const playerExists = await Player.findOne({ ra });
+        if (playerExists) {
+            return res.status(400).json({ message: "Jogador com este RA já existe." });
+        }
+        const player = await Player.create({ name, ra, discordId, password, role });
+        res.status(201).json({ _id: player._id, name: player.name, ra: player.ra, role: player.role });
+    } catch (error) {
+        res.status(400).json({ message: "Erro ao criar jogador", error: error.message });
+    }
+});
+
+// ROTA POST para login
+app.post("/login", async (req, res) => {
+    const { ra, password } = req.body;
+    try {
+        const player = await Player.findOne({ ra });
+        if (player && (await player.matchPassword(password))) {
+            const token = jwt.sign({ id: player._id }, JWT_SECRET, { expiresIn: '8h' });
+            res.json({
+                _id: player._id,
+                name: player.name,
+                ra: player.ra,
+                role: player.role,
+                token: token
+            });
+        } else {
+            res.status(401).json({ message: "RA ou senha inválidos." });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Erro no servidor durante o login.", error: error.message });
+    }
+});
+
+// ROTA GET para buscar todos os jogadores (protegida)
+app.get("/api/players", protect, admin, async (req, res) => {
+    const players = await Player.find({});
+    res.json(players);
+});
+
+// ROTA DELETE para remover um jogador (protegida)
+app.delete('/api/players/:id', protect, admin, async (req, res) => {
+    const player = await Player.findById(req.params.id);
+    if (player) {
+        await player.deleteOne();
+        res.json({ message: 'Jogador removido' });
+    } else {
+        res.status(404).json({ message: 'Jogador não encontrado' });
+    }
+});
+
+// ROTA PUT para atualizar um jogador (protegida)
+app.put('/api/players/:id', protect, admin, async (req, res) => {
+    const player = await Player.findById(req.params.id);
+
+    if (player) {
+        player.name = req.body.name || player.name;
+        player.ra = req.body.ra || player.ra;
+        player.discordId = req.body.discordId || player.discordId;
+        player.role = req.body.role || player.role;
+
+        // Se uma nova senha for enviada, criptografe-a
+        if (req.body.password) {
+            player.password = req.body.password;
+        }
+
+        const updatedPlayer = await player.save();
+        res.json({
+            _id: updatedPlayer._id,
+            name: updatedPlayer.name,
+            ra: updatedPlayer.ra,
+            role: updatedPlayer.role,
+        });
+    } else {
+        res.status(404).json({ message: 'Jogador não encontrado' });
+    }
+});
+
+// ROTA GET para buscar as horas de um jogador logado
+app.get("/api/my-hours", protect, async (req, res) => {
+    try {
+        const player = req.user; // Obtido do middleware 'protect'
+        if (!player) {
+            return res.status(404).json({ message: "Jogador não encontrado." });
+        }
+
+        const startOfSemesterTimestamp = new Date('2025-01-01T00:00:00Z').getTime();
+        const { data: trainings } = await apiEsports.get('/trains/all', {
+            params: { 'StartTimestamp>': startOfSemesterTimestamp }
+        });
+
+        let totalMilliseconds = 0;
+        if (trainings && trainings.length > 0) {
+            trainings.forEach(train => {
+                train.AttendedPlayers.forEach(p => {
+                    if (p.PlayerId === player.discordId && p.ExitTimestamp > p.EntranceTimestamp) {
+                        totalMilliseconds += (p.ExitTimestamp - p.EntranceTimestamp);
+                    }
+                });
+            });
+        }
+        
+        const totalHours = totalMilliseconds / (1000 * 60 * 60);
+        res.json({ name: player.name, hours: totalHours.toFixed(2) });
+
+    } catch (error) {
+        console.error("Erro ao buscar horas:", error);
+        res.status(500).json({ message: 'Erro ao buscar dados de treino.', error: error.message });
+    }
+});
+
+
+
+// --- || FIM DAS NOVAS ROTAS || ---
+
+
+// --- || SUAS ROTAS ANTIGAS (MANTIDAS) || ---
 // ROTA GET para buscar todos os conteúdos
 app.get("/content", async (req, res) => {
   try {
-    // Usa o modelo 'Content' para encontrar todos os documentos na coleção 'contents'
     const allContent = await Content.find({});
-
     if (allContent.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "Nenhum conteúdo encontrado na coleção." });
+      return res.status(404).json({ message: "Nenhum conteúdo encontrado na coleção." });
     }
-
     res.status(200).json(allContent);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Erro no servidor ao buscar conteúdo.",
-        error: error.message,
-      });
+    res.status(500).json({ message: "Erro no servidor ao buscar conteúdo.", error: error.message });
   }
 });
 
-// NOVA ROTA PATCH para editar um conteúdo específico pelo containerId
+// ROTA PATCH para editar um conteúdo específico pelo containerId
 app.patch("/content/:containerId", async (req, res) => {
   try {
-    const { containerId } = req.params; // Pega o containerId da URL
-    const updates = req.body; // Pega os campos a serem atualizados do corpo da requisição
-
-    // Opcional: remover campos que não deveriam ser atualizáveis por esta rota
-    // delete updates.containerId; // Se não quiser permitir que o containerId seja alterado via body
-    // delete updates._id; // O _id é imutável por padrão no MongoDB via updates normais
-
+    const { containerId } = req.params;
+    const updates = req.body;
     const updatedContent = await Content.findOneAndUpdate(
-      { containerId: containerId }, // Critério de busca
-      { $set: updates }, // Operador $set garante que apenas os campos fornecidos sejam atualizados
-      { new: true, runValidators: true } // Opções:
-      // new: true -> retorna o documento modificado
-      // runValidators: true -> garante que as validações do schema sejam aplicadas
+      { containerId: containerId },
+      { $set: updates },
+      { new: true, runValidators: true }
     );
-
     if (!updatedContent) {
-      return res
-        .status(404)
-        .json({
-          message: "Conteúdo não encontrado com o containerId fornecido.",
-        });
+      return res.status(404).json({ message: "Conteúdo não encontrado com o containerId fornecido." });
     }
-
-    res.status(200).json(updatedContent); // Retorna o documento atualizado
+    res.status(200).json(updatedContent);
   } catch (error) {
     console.error("Erro ao atualizar conteúdo:", error);
-    // Tratar erros de validação do Mongoose de forma mais específica
     if (error.name === "ValidationError") {
-      return res
-        .status(400)
-        .json({ message: "Erro de validação.", errors: error.errors });
+      return res.status(400).json({ message: "Erro de validação.", errors: error.errors });
     }
-    res
-      .status(500)
-      .json({
-        message: "Erro interno do servidor ao atualizar o conteúdo.",
-        error: error.message,
-      });
+    res.status(500).json({ message: "Erro interno do servidor ao atualizar o conteúdo.", error: error.message });
   }
 });
+// --- || FIM DAS ROTAS ANTIGAS || ---
 
-// --- || ---
-// --- || ---
 
 // Iniciando o servidor
 conectarMongoDB()
@@ -128,7 +243,5 @@ conectarMongoDB()
     });
   })
   .catch((error) => {
-    console.error(
-      `Falha ao iniciar o servidor devido a erro na conexão com MongoDB: ${error}`
-    );
+    console.error(`Falha ao iniciar o servidor: ${error}`);
   });
