@@ -20,45 +20,40 @@ O portal possui três áreas distintas:
 
 #### 2. **Painel de Administrador (Acesso exclusivo para admins)**
 - **Login Seguro:** Acesso protegido por um sistema de RA e senha.
-- **Gerenciamento de Usuários:** O admin pode:
-  - **Adicionar** novos membros (jogadores, capitães ou outros admins).
-  - **Visualizar** todos os membros cadastrados.
-  - **Deletar** membros.
-- **Controle Total:** Esta é a área central para administrar quem tem acesso ao sistema.
+- **Gerenciamento de Usuários (CRUD):**
+  - **Criar:** Adicionar novos membros (jogadores, capitães ou outros admins) ao banco de dados.
+  - **Visualizar:** Ver todos os membros cadastrados.
+  - **Atualizar:** Editar as informações de um membro.
+  - **Deletar:** Remover um membro do sistema.
 
 #### 3. **Área do Jogador (Acesso para membros logados)**
 - **Login Individual:** Cada membro usa seu RA e senha para entrar.
-- **Consulta de Horas-Pai:** A principal funcionalidade aqui é a visualização das horas de atividades complementares. O sistema calcula automaticamente o tempo de treino de um jogador e exibe o total.
-- **Dados em Tempo Real:** O cálculo é feito buscando os dados mais recentes da API de treinos da Mauá, então o valor está sempre atualizado.
+- **Consulta de Horas-Pai:** Visualização do total de horas de treino acumuladas no semestre, com cálculo em tempo real feito pelo backend.
 
 ---
 
 ## 🚀 Guia de Instalação e Execução
 
-Siga estes passos na ordem para configurar e rodar o projeto.
+Siga estes passos na ordem para configurar e executar o projeto completo em sua máquina local.
 
 ### **Passo 0: Pré-requisitos**
 
 Antes de começar, garanta que você tenha o seguinte instalado na sua máquina:
-- **Node.js:** (de preferência a versão 18 ou mais recente).
+- **Node.js:** (versão 18 ou superior).
 - **MongoDB:** Você não precisa instalar, pois o projeto já está configurado para usar a base de dados em nuvem (MongoDB Atlas).
-- **VS Code:** Editor de código recomendado.
-- **Extensão "Live Server"** no VS Code: Para rodar o frontend facilmente.
+- **VS Code** com a extensão **Live Server**.
 
 ### **Passo 1: Configurar o Backend**
 
-1.  Abra um terminal na pasta do projeto.
-2.  Navegue até a pasta `backend`:
+1.  Abra um terminal e navegue até a pasta `backend` do projeto:
     ```bash
     cd backend
     ```
-
-3.  Instale todas as dependências do servidor:
+2.  Instale todas as dependências do servidor:
     ```bash
     npm install
     ```
-
-4.  Na pasta `backend`, crie um arquivo chamado `.env`. Ele é usado para guardar senhas e chaves de forma segura. Copie e cole o seguinte conteúdo nele:
+3.  Na pasta `backend`, crie um arquivo chamado `.env` e cole o conteúdo abaixo:
     ```
     PORT=3000
     APIESPORTS_URL="[https://API-Esports.lcstuber.net/](https://API-Esports.lcstuber.net/)"
@@ -69,64 +64,68 @@ Antes de começar, garanta que você tenha o seguinte instalado na sua máquina:
 
 ### **Passo 2: Iniciar o Servidor Backend**
 
-1.  No mesmo terminal (ainda dentro da pasta `backend`), execute o comando:
+1.  No terminal (dentro da pasta `backend`), execute o comando:
     ```bash
     npm run dev
     ```
-2.  Aguarde até que as mensagens de sucesso apareçam no terminal:
-    `Conectado ao MongoDB com sucesso!`
-    `Servidor funcionando na porta: 3000`
-3.  **Importante:** Deixe este terminal aberto. Ele é o coração da aplicação.
+2.  Aguarde as mensagens de sucesso: `Conectado ao MongoDB com sucesso!` e `Servidor funcionando na porta: 3000`.
+3.  **Deixe este terminal rodando.**
 
 ### **Passo 3: Iniciar o Frontend**
 
-1.  No VS Code, abra a pasta `frontend`.
-2.  Clique com o botão direito no arquivo `frontend/index.html`.
-3.  No menu que aparecer, selecione a opção **"Open with Live Server"**.
-4.  Seu navegador abrirá automaticamente com o site principal.
+1.  No VS Code, clique com o botão direito no arquivo `frontend/index.html`.
+2.  Selecione a opção **"Open with Live Server"**.
 
 ### **Passo 4: Criando o Primeiro Administrador (Etapa Essencial)**
 
-O sistema precisa de um "superusuário" para começar. Como o banco de dados está vazio, você precisa criar o primeiro admin manualmente.
+O banco de dados começa vazio. Siga os passos para criar o primeiro usuário `admin`:
 
-1.  **Abra o arquivo `backend/index.js`** no VS Code.
-2.  **Desabilite temporariamente a segurança** da rota de criação de jogadores.
-    - **Encontre esta linha:**
+1.  **Abra o arquivo `backend/index.js`**.
+2.  **Comente temporariamente** a segurança da rota de criação de jogadores.
+    - **Encontre a linha:**
       ```javascript
       app.post("/api/players", protect, admin, async (req, res) => {
       ```
-    - **Adicione `/*` e `*/` para "comentar" a segurança:**
+    - **Altere para:**
       ```javascript
       app.post("/api/players", /* protect, admin, */ async (req, res) => {
       ```
-3.  Salve o arquivo `index.js`. O servidor no terminal irá reiniciar sozinho.
-4.  Use uma ferramenta como **Postman** ou **Insomnia** para fazer o seguinte pedido:
-    - **Método:** `POST`
-    - **URL:** `http://localhost:3000/api/players`
-    - **Body** (corpo da requisição, em formato JSON):
-      ```json
-      {
-          "name": "Admin do Sistema",
-          "ra": "admin",
-          "discordId": "0",
-          "password": "admin",
-          "role": "admin"
-      }
-      ```
-5.  Após enviar a requisição e receber a confirmação, **volte ao `index.js` e remova os `/* */`** para reativar a segurança.
+3.  Salve o arquivo. O servidor irá reiniciar.
+4.  Use uma ferramenta como **Postman** para fazer uma requisição `POST` para `http://localhost:3000/api/players` com o seguinte `body` em JSON:
+    ```json
+    {
+        "name": "Admin do Sistema",
+        "ra": "admin",
+        "discordId": "0",
+        "password": "admin",
+        "role": "admin"
+    }
+    ```
+5.  Após criar o usuário, **desfaça a alteração no `index.js`** para reativar a segurança da rota.
 
-### **Passo 5: Como Usar e Testar o Sistema**
+### **Passo 5: Como Usar e Testar o Sistema com a Conta de Exemplo**
 
-1.  **Acesse o Painel Admin:**
-    - Vá para a página `login.html` no seu navegador (ex: `http://127.0.0.1:5500/frontend/login.html`).
-    - Use `admin` como RA e `admin` como senha.
-    - Você será redirecionado para o `admin.html`. Aqui você pode criar novos jogadores.
+1.  **Login como Admin:**
+    - Acesse a página `login.html` no seu navegador.
+    - Use **RA:** `admin` e **Senha:** `admin`.
+    - Você será redirecionado para o painel de administração (`admin.html`).
 
-2.  **Teste a Área do Jogador:**
-    - No painel admin, crie um novo usuário com o cargo "Player".
-    - Abra uma **nova janela anônima** no seu navegador.
-    - Acesse novamente a página de `login.html` e entre com os dados do **jogador** que você criou.
-    - Você será redirecionado para a página `minhas-horas.html` e verá o cálculo das horas daquele jogador.
+2.  **Cadastre o Jogador de Teste:**
+    - No painel de admin, preencha o formulário para adicionar um novo jogador. Use os seguintes dados:
+        - **Nome:** `Jogador de Teste`
+        - **RA:** `24`
+        - **ID do Discord:** `123456789` (pode ser qualquer número para teste)
+        - **Senha:** `24`
+        - **Cargo:** `Player`
+    - Clique em "Salvar". O novo jogador aparecerá na tabela.
+
+3.  **Login como Jogador:**
+    - Abra uma **nova janela anônima** no seu navegador (para não ter conflito de login).
+    - Acesse a página `login.html` novamente.
+    - Faça login com as credenciais do jogador que você acabou de criar:
+        - **RA:** `24`
+        - **Senha:** `24`
+    - Você será redirecionado para a página `minhas-horas.html` e, após um breve carregamento, verá o cálculo das horas-pai daquele jogador.
 
 ---
 
