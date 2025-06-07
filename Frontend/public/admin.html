@@ -39,7 +39,8 @@
       rel="stylesheet"
     />
     <!-- Custom CSS -->
-    <link href="src/styles.css" rel="stylesheet" />
+    <link href="styles.css" rel="stylesheet" />
+
     <script
       src="https://alcdn.msauth.net/browser/2.14.2/js/msal-browser.min.js"
       integrity="sha384-ggh+EF1aSqm+Y4yvv2n17KpurNcZTeYtUZUvhPziElsstmIEubyEB6AIVpKLuZgr"
@@ -55,7 +56,7 @@
           class="navbar-brand position-absolute top-50 start-50 translate-middle"
           href="#hero"
         >
-          <img src="src/img/logoMaua.png" alt="Logo Mauá Esports" height="60" />
+          <img src="img/logoMaua.png" alt="Logo Mauá Esports" height="60" />
         </a>
 
         <button
@@ -70,19 +71,24 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#hero">Início</a>
+              <a class="nav-link" href="#hero">Gerenciar Textos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#times">Times</a>
+              <a class="nav-link" href="#times">Gerenciar Cargos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#campeonatos">Campeonatos</a>
+              <a class="nav-link" href="#campeonatos">Horas PAE</a>
             </li>
           </ul>
 
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <button id="loginButton" class="btn btn-primary">Login</button>
+              <button
+                id="logoutButton"
+                class="btn btn-primary"
+                onclick="window.location.href='/logout'"
+                >Sair</button
+              >
             </li>
           </ul>
         </div>
@@ -262,5 +268,25 @@
     <!-- Custom JS -->
     <script src="src/app.js"></script>
     <script src="src/auth.js"></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", async () => {
+        const response = await fetch("/api/data");
+        if (response.status === 401) {
+          window.location.href = "/";
+        } else {
+          const data = await response.json();
+          document.getElementById("welcome").textContent = data.message;
+        }
+      });
+
+      async function fetchData() {
+        const response = await fetch("/api/data");
+        if (response.ok) {
+          const data = await response.json();
+          document.getElementById("api-data").textContent =
+            data.data.something.DataArray2;
+        }
+      }
+    </script>
   </body>
 </html>

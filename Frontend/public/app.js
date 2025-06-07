@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Navbar background change on scroll
   const navbar = document.querySelector(".navbar");
   window.addEventListener("scroll", function () {
     if (window.scrollY > 50) {
@@ -27,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Active link highlighting
   const sections = document.querySelectorAll("section");
   const navLinks = document.querySelectorAll(".nav-link");
 
