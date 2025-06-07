@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html";
     return;
   }
-
   const apiClient = axios.create({
     baseURL: "http://localhost:3000",
     headers: { Authorization: `Bearer ${token}` },
