@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 import Content from "./models/Content.js";
 import Player from "./models/Player.js"; // <-- IMPORTAR O NOVO MODELO
 
-const PORT = 3000;
+const PORT = 3001;
 const APIESPORTS_URL = "https://API-Esports.lcstuber.net/";
 const APIESPORTS_TOKEN = "Bearer frontendmauaesports";
 const MONGODB_URL =

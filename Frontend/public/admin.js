@@ -2,10 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("userToken");
   const userRole = localStorage.getItem("userRole");
 
-  if (!token || userRole !== "admin") {
-    window.location.href = "login.html";
-    return;
-  }
+  //if (!token || userRole !== "admin") {
+    //window.location.href = "/";
+    //return;
+  //}
 
   const apiClient = axios.create({
     baseURL: "http://localhost:3000",
@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
         tableBody.appendChild(row);
       });
     } catch (error) {
-      console.error("Erro ao buscar jogadores:", error);
-      if (error.response && error.response.status === 401)
-        window.location.href = "login.html";
+      // console.error("Erro ao buscar jogadores:", error);
+      //if (error.response && error.response.status === 401)
+        //window.location.href = "/";
       tableBody.innerHTML =
         '<tr><td colspan="5" class="text-center text-danger">Falha ao carregar jogadores.</td></tr>';
     }
