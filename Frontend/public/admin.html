@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel do Administrador - Mauá Esports</title>
-
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
       rel="stylesheet"
     />
     <link href="styles.css" rel="stylesheet" />
@@ -40,19 +43,19 @@
                   required
                 >
                   <option value="">Selecione a seção</option>
-                  <option value="hero-title">
-                    Título Principal (Quem Somos)
-                  </option>
-                  <option value="hero-subtitle">
-                    Subtítulo (Mauá Esports)
-                  </option>
-                  <option value="hero-description">Descrição Principal</option>
-                  <option value="championships-title">
-                    Título dos Campeonatos
-                  </option>
-                  <option value="teams-title">Título dos Times</option>
-                  <option value="teams-subtitle">Subtítulo dos Times</option>
-                  <option value="teams-description">Descrição dos Times</option>
+                  <optgroup label="Quem Somos">
+                    <option value="hero.title">Título Principal</option>
+                    <option value="hero.subtitle">Subtítulo</option>
+                    <option value="hero.description">Descrição</option>
+                  </optgroup>
+                  <optgroup label="Times">
+                    <option value="times.title">Título</option>
+                    <option value="times.subtitle">Subtítulo</option>
+                    <option value="times.description">Descrição</option>
+                  </optgroup>
+                  <optgroup label="Campeonatos">
+                    <option value="campeonatos.title">Título</option>
+                  </optgroup>
                 </select>
               </div>
               <div class="col-md-6 mb-3">
@@ -100,13 +103,11 @@
               <div class="col-md-8 mb-3">
                 <label for="discord-id" class="form-label">Discord ID:</label>
                 <input
-                  type="id"
+                  type="text"
                   class="form-control admin-form-control"
-                  id="user-email"
+                  id="discord-id"
                   placeholder="123123123123123123"
-                  required
                 />
-                <div id="user-suggestions" class="mt-2"></div>
               </div>
               <div class="col-md-8 mb-3">
                 <label for="user-email" class="form-label"
@@ -119,7 +120,6 @@
                   placeholder="usuario@maua.br"
                   required
                 />
-                <div id="user-suggestions" class="mt-2"></div>
               </div>
               <div class="col-md-4 mb-3">
                 <label for="user-role" class="form-label">Cargo:</label>
@@ -200,23 +200,26 @@
                 <div class="col-md-6">
                   <p><strong>Nome:</strong> <span id="pae-user-name"></span></p>
                   <p>
-                    <strong>Email:</strong>
-                    <span id="pae-user-email-display"></span>
+                    <strong>Email:</strong
+                    ><span id="pae-user-email-display"></span>
                   </p>
                   <p><strong>RA:</strong> <span id="pae-user-ra"></span></p>
                 </div>
                 <div class="col-md-6">
                   <p>
-                    <strong>Cargo:</strong>
-                    <span class="role-badge" id="pae-user-role"></span>
+                    <strong>Cargo:</strong
+                    ><span class="role-badge" id="pae-user-role"></span>
                   </p>
                   <p>
-                    <strong>Horas PAE Totais:</strong>
-                    <span id="pae-total-hours" class="text-info fw-bold"></span>
+                    <strong>Horas PAE Totais:</strong
+                    ><span
+                      id="pae-total-hours"
+                      class="text-info fw-bold"
+                    ></span>
                   </p>
                   <p>
-                    <strong>Última Atualização:</strong>
-                    <span id="pae-last-update"></span>
+                    <strong>Última Atualização:</strong
+                    ><span id="pae-last-update"></span>
                   </p>
                 </div>
               </div>
@@ -233,18 +236,8 @@
       </div>
     </div>
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script type="module" src="js/admin.js"></script>
   </body>
 </html>

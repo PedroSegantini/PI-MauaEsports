@@ -15,18 +15,17 @@ export default class ApiService {
   }
 
   async getTexts() {
-    // return this.axios.get("/api/texts");
-    console.log("Buscando textos da API...");
-    return {
-      "hero-title": "QUEM SOMOS?",
-      "hero-subtitle": "Mauá Esports",
-    };
+    console.log("Buscando textos da API real...");
+    const res = await this.axios.get("/api/content");
+    return res.data;
   }
 
-  async updateText(section, newText) {
-    // return this.axios.put(`/api/texts/${section}`, { text: newText });
-    console.log(`Atualizando texto de ${section} para "${newText}"`);
-    return { success: true, message: "Texto atualizado com sucesso!" };
+  async updateText(containerId, dbField, value) {
+    const url = `/api/content/${containerId}`;
+    const body = { [dbField]: value };
+    console.log(`Enviando PATCH para ${url} com o corpo:`, body);
+    const res = await this.axios.patch(url, body);
+    return res.data;
   }
 
   async findUserByEmail(email) {
