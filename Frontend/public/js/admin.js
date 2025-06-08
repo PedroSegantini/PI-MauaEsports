@@ -12,70 +12,6 @@ let textSections = {
   campeonatos: { title: "", subtitle: "", description: "" },
 };
 
-const mockUsers = [
-  {
-    name: "João Silva",
-    email: "joao.silva@maua.br",
-    ra: "22.01234-5",
-    role: "admin",
-    paeHours: 120,
-  },
-  {
-    name: "Maria Santos",
-    email: "maria.santos@maua.br",
-    ra: "22.05678-9",
-    role: "captain",
-    paeHours: 85,
-  },
-  {
-    name: "Pedro Costa",
-    email: "pedro.costa@maua.br",
-    ra: "22.09876-3",
-    role: "player",
-    paeHours: 45,
-  },
-];
-
-async function addUser(ra, discordid, email, role) {
-  try {
-    const url = "/players";
-    const body = {
-      ra: ra,
-      discordId: discordid,
-      email: email,
-      role: role,
-    };
-
-    console.log(`Enviando POST para ${url} com os dados:`, body);
-    const response = await api1.post(url, body);
-    console.log("Usuário adicionado com sucesso:", response.data);
-    return response.data;
-  } catch (error) {
-    console.error(
-      "ERRO ao adicionar usuário:",
-      error.response?.data || error.message
-    );
-    throw error;
-  }
-}
-
-async function findUser(email) {
-  try {
-    const url = `/players?email=${email}`;
-
-    console.log(`Buscando jogador com a URL: ${url}`);
-
-    const response = await api1.get(url);
-    return response.data;
-  } catch (error) {
-    console.error(
-      "API Error: Jogador não encontrado ou falha na requisição.",
-      error.response?.data || error.message
-    );
-    throw error;
-  }
-}
-
 function showAlert(alertId, statusId, message, type) {
   const alertEl = document.getElementById(alertId);
   const statusEl = document.getElementById(statusId);
@@ -104,29 +40,6 @@ function showUserInfo(user) {
   roleSpan.textContent = getRoleName(user.role);
   roleSpan.className = `role-badge role-${user.role}`;
   document.getElementById("selected-user").style.display = "block";
-}
-
-function showPAEInfo(user) {
-  document.getElementById("pae-user-name").textContent = user.name;
-  document.getElementById("pae-user-email-display").textContent = user.email;
-  document.getElementById("pae-user-ra").textContent = user.ra;
-  const roleSpan = document.getElementById("pae-user-role");
-  roleSpan.textContent = getRoleName(user.role);
-  roleSpan.className = `role-badge role-${user.role}`;
-  document.getElementById("pae-total-hours").textContent = `${user.paeHours}h`;
-  document.getElementById("pae-last-update").textContent =
-    new Date().toLocaleDateString("pt-BR");
-  const activities = [
-    "Participação em campeonato - 20h",
-    "Treinamento de equipe - 15h",
-    "Organização de evento - 10h",
-  ];
-  const activitiesDiv = document.getElementById("pae-activities");
-  activitiesDiv.innerHTML = activities
-    .map((activity) => `<div class="user-search-result">${activity}</div>`)
-    .join("");
-  document.getElementById("pae-results").style.display = "block";
-  document.getElementById("pae-status").style.display = "none";
 }
 
 function updateCurrentText(sectionPath) {
@@ -175,9 +88,8 @@ async function getMe() {
   try {
     const response = await api2.get("/data");
     const emailCheck = response.data.email;
-    const role = await findUser(emailCheck);
-    console.log("Resposta da API recebida:", response);
-    return role;
+    const player = await api1.get(`/players?email=${emailCheck}`);
+    return player.data;
   } catch (error) {
     console.error("Erro ao buscar perfil do usuário logado:", error);
     throw error;
@@ -190,22 +102,16 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     const userRole = userProfile.role;
 
-    console.log(`Usuário logado como: ${userRole}`);
-
     if (userRole === "admin") {
-      console.log("Permissão de administrador concedida. Exibindo painéis.");
       document.getElementById("text-editor-card").style.display = "block";
       document.getElementById("role-assignment-card").style.display = "block";
     }
 
     loadContent();
   } catch (error) {
-    console.error(
-      "Não foi possível obter o perfil do usuário para verificar permissões.",
-      error
-    );
-    // window.location.href = "/";
+    console.error("Não foi possível obter o perfil do usuário.", error);
   }
+
   const textSectionSelect = document.getElementById("text-section");
   const textForm = document.getElementById("text-form");
   const searchUserBtn = document.getElementById("search-user");
@@ -235,7 +141,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-      await addUser(ra, discordId, email, role);
+      await api1.post("/players", { ra, discordId, email, role });
       showAlert(
         "role-alert",
         "role-status",
@@ -301,8 +207,8 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-      const player = await findUser(email);
-      showUserInfo(player);
+      const player = await api1.get(`/players?email=${email}`);
+      showUserInfo(player.data);
       showAlert(
         "role-alert",
         "role-status",
@@ -317,15 +223,49 @@ window.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  paeForm.addEventListener("submit", function (e) {
+  // ✅ Consulta real de horas PAE
+  paeForm.addEventListener("submit", async function (e) {
     e.preventDefault();
-    const email = document.getElementById("pae-user-email").value;
-    const user = mockUsers.find((u) => u.email === email);
-    if (user) {
-      showPAEInfo(user);
-    } else {
-      showAlert("pae-alert", "pae-status", "Usuário não encontrado.", "danger");
-      document.getElementById("pae-results").style.display = "none";
+    const email = document.getElementById("pae-user-email").value.trim().toLowerCase();
+    const errorBox = document.getElementById("pae-alert");
+    const statusBox = document.getElementById("pae-status");
+    const resultsBox = document.getElementById("pae-results");
+    const activities = document.getElementById("pae-activities");
+
+    if (!email.endsWith("@maua.br")) {
+      errorBox.textContent = "Email institucional inválido.";
+      errorBox.className = "alert alert-danger";
+      statusBox.style.display = "block";
+      resultsBox.style.display = "none";
+      return;
+    }
+
+    try {
+      const res = await api1.get(`/my-hours?email=${encodeURIComponent(email)}`);
+      const { name, email: userEmail, hours, sessions } = res.data;
+
+      document.getElementById("pae-user-name").textContent = name;
+      document.getElementById("pae-user-email-display").textContent = userEmail;
+      document.getElementById("pae-user-ra").textContent = "-";
+      document.getElementById("pae-user-role").textContent = "-";
+      document.getElementById("pae-total-hours").textContent = `${hours} h`;
+      document.getElementById("pae-last-update").textContent = new Date().toLocaleDateString("pt-BR");
+
+      activities.innerHTML = sessions.map(s => {
+        const entrada = new Date(s.entrance).toLocaleString();
+        const saida = new Date(s.exit).toLocaleString();
+        const duracao = (s.duration / 60000).toFixed(1);
+        return `<div class="user-search-result">${entrada} - ${saida} (${duracao} min) [${s.modality}]</div>`;
+      }).join("");
+
+      resultsBox.style.display = "block";
+      statusBox.style.display = "none";
+    } catch (err) {
+      console.error("Erro ao consultar horas:", err);
+      errorBox.textContent = err.response?.data?.message || "Erro ao buscar horas.";
+      errorBox.className = "alert alert-danger";
+      statusBox.style.display = "block";
+      resultsBox.style.display = "none";
     }
   });
 
