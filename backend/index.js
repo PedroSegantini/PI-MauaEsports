@@ -13,7 +13,7 @@ const APIESPORTS_TOKEN = "Bearer frontendmauaesports";
 const MONGODB_URL =
   "mongodb+srv://mauaesportsbd:CDM9fi53PE83cMxI@cluster0.ib4qqro.mongodb.net/mauaesports-db?retryWrites=true&w=majority";
 const JWT_SECRET =
-  "df5c70339ff02329dc3394e5476203351390fcc390a05f11de0a3d0a436f75d5"; // <-- Adicione uma chave secreta
+  "df5c70339ff02329dc3394e5476203351390fcc390a05f11de0a3d0a436f75d5";
 
 const app = express();
 
