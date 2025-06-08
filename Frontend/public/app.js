@@ -1,6 +1,6 @@
 // Configuração do Axios
 const api1 = axios.create({
-  baseURL: "http://localhost:3001/",
+  baseURL: "http://localhost:3001",
 });
 
 // Função para carregar o conteúdo dinâmico
@@ -35,6 +35,7 @@ async function loadContent() {
     });
   } catch (error) {
     console.error("Erro ao carregar conteúdo:", error);
+    // Aqui você pode adicionar um tratamento de erro mais amigável ao usuário
   }
 }
 
@@ -47,6 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
   navbarToggler.addEventListener("click", function () {
     navbarBrand.classList.toggle("mobile-hidden");
   });
+
+  // Smooth scroll for navigation links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
@@ -55,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         target.scrollIntoView({
           behavior: "smooth",
         });
+        // Close mobile menu if open
         if (navbarCollapse.classList.contains("show")) {
           navbarCollapse.classList.remove("show");
           navbarBrand.classList.remove("mobile-hidden");
@@ -63,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // Navbar background change on scroll
   const navbar = document.querySelector(".navbar");
   window.addEventListener("scroll", function () {
     if (window.scrollY > 50) {
