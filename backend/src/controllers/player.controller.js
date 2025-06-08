@@ -2,19 +2,19 @@ import Player from "../models/Player.js";
 
 export const createPlayer = async (req, res) => {
   try {
-    const { name, ra, discordId, role } = req.body;
+    const { ra, discordId, email, role } = req.body;
 
-    if (!name || !ra || !discordId) {
-      return res.status(400).json({
-        message:
-          "Campos obrigatórios ausentes: name, ra e discordId são necessários.",
-      });
-    }
+    // if (!email || !ra || !discordId) {
+    //   return res.status(400).json({
+    //     message:
+    //       "Campos obrigatórios ausentes: RA, discordId e e-mail são necessários.",
+    //   });
+    // }
 
     const newPlayer = new Player({
-      name,
       ra,
       discordId,
+      email,
       role,
     });
 

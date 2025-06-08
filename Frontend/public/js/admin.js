@@ -32,6 +32,29 @@ const mockUsers = [
   },
 ];
 
+async function addUser(ra, discordid, email, role) {
+  try {
+    const url = "/players";
+    const body = {
+      ra: ra,
+      discordId: discordid,
+      email: email,
+      role: role,
+    };
+
+    console.log(`Enviando POST para ${url} com os dados:`, body);
+    const response = await api1.post(url, body);
+    console.log("Usuário adicionado com sucesso:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "ERRO ao adicionar usuário:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+}
+
 function showAlert(alertId, statusId, message, type) {
   const alertEl = document.getElementById(alertId);
   const statusEl = document.getElementById(statusId);
@@ -138,6 +161,40 @@ window.addEventListener("DOMContentLoaded", () => {
     updateCurrentText(this.value);
   });
 
+  roleForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const ra = document.getElementById("ra").value;
+    const discordId = document.getElementById("discord-id").value;
+    const email = document.getElementById("user-email").value;
+    const role = document.getElementById("user-role").value;
+
+    if (!ra || !email || !role) {
+      showAlert(
+        "role-alert",
+        "role-status",
+        "Por favor, preencha RA, Email e Cargo.",
+        "danger"
+      );
+      return;
+    }
+
+    try {
+      await addUser(ra, discordId, email, role);
+      showAlert(
+        "role-alert",
+        "role-status",
+        `Usuário ${email} adicionado com sucesso!`,
+        "success"
+      );
+      roleForm.reset();
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Falha ao adicionar usuário.";
+      showAlert("role-alert", "role-status", errorMessage, "danger");
+    }
+  });
+
   textForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     const selectedKey = textSectionSelect.value;
@@ -178,30 +235,6 @@ window.addEventListener("DOMContentLoaded", () => {
     const email = document.getElementById("user-email").value;
     const user = mockUsers.find((u) => u.email === email);
     if (user) {
-      showUserInfo(user);
-    } else {
-      showAlert(
-        "role-alert",
-        "role-status",
-        "Usuário não encontrado.",
-        "danger"
-      );
-    }
-  });
-
-  roleForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const email = document.getElementById("user-email").value;
-    const role = document.getElementById("user-role").value;
-    const user = mockUsers.find((u) => u.email === email);
-    if (user) {
-      user.role = role;
-      showAlert(
-        "role-alert",
-        "role-status",
-        `Cargo "${getRoleName(role)}" atribuído com sucesso!`,
-        "success"
-      );
       showUserInfo(user);
     } else {
       showAlert(

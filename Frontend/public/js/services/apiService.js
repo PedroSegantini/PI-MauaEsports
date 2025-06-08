@@ -1,5 +1,5 @@
 export default class ApiService {
-  constructor(baseURL = "http://localhost:3000") {
+  constructor(baseURL = "http://localhost:3001") {
     const token = localStorage.getItem("userToken");
     this.axios = axios.create({
       baseURL,
