@@ -58,17 +58,17 @@
                   </optgroup>
                 </select>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="current-text" class="form-label"
-                  >Texto Atual:</label
-                >
-                <input
-                  type="text"
-                  class="form-control admin-form-control"
-                  id="current-text"
-                  readonly
-                />
-              </div>
+            </div>
+            <div class="mb-3">
+              <label for="current-text" class="form-label">Texto atual:</label>
+              <textarea
+                type="text"
+                class="form-control admin-form-control"
+                id="current-text"
+                rows="3"
+                readonly
+              >
+              </textarea>
             </div>
             <div class="mb-3">
               <label for="new-text" class="form-label">Novo Texto:</label>
@@ -100,6 +100,15 @@
         <div class="card-body">
           <form id="role-form">
             <div class="row">
+              <div class="col-md-8 mb-3">
+                <label for="discord-id" class="form-label">RA:</label>
+                <input
+                  type="text"
+                  class="form-control admin-form-control"
+                  id="ra"
+                  placeholder="2x.xxx-x"
+                />
+              </div>
               <div class="col-md-8 mb-3">
                 <label for="discord-id" class="form-label">Discord ID:</label>
                 <input

@@ -9,6 +9,7 @@ const playerSchema = new mongoose.Schema({
     enum: ["player", "captain", "admin"],
     default: "player",
   },
+  email: { type: String, required: true, unique: true },
 });
 
 const Player = mongoose.model("Player", playerSchema);
