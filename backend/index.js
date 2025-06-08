@@ -16,7 +16,6 @@ const app = express();
 
 const apiEsports = axios.create({
   baseURL: APIESPORTS_URL,
-  timeout: 7000,
   headers: {
     "Content-Type": "application/json",
     Authorization: APIESPORTS_TOKEN,
