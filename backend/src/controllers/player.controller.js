@@ -37,8 +37,6 @@ export const createPlayer = async (req, res) => {
 export const findUser = async (req, res) => {
   try {
     const { email } = req.query;
-    console.log("req.query");
-    console.log(req.query);
 
     if (!email) {
       return res
@@ -60,5 +58,27 @@ export const findUser = async (req, res) => {
       message: "Erro ao buscar jogador por email.",
       error: error.message,
     });
+  }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const userEmail = req.user.emails[0].value;
+    const playerProfile = await Player.findOne({ email: userEmail });
+
+    if (!playerProfile) {
+      return res
+        .status(404)
+        .json({ message: "Perfil do jogador não encontrado." });  
+    }
+
+    res.status(200).json(playerProfile);
+  } catch (error) {
+    res
+      .status(500)
+      .json({
+        message: "Erro de servidor ao buscar perfil.",
+        error: error.message,
+      });
   }
 };

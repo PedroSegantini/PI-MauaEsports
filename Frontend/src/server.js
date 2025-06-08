@@ -45,6 +45,9 @@ app.get(
 
 app.get("/api/data", (req, res) => {
   if (!req.isAuthenticated()) return res.sendStatus(401);
+  return res.json({
+    email: `${req.user._json.mail} `,
+  });
 });
 
 app.use(express.static("../public"));

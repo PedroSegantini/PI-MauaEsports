@@ -2,6 +2,10 @@ const api1 = axios.create({
   baseURL: "http://localhost:3001/api",
 });
 
+const api2 = axios.create({
+  baseURL: "http://localhost:3000/api",
+});
+
 let textSections = {
   hero: { title: "", subtitle: "", description: "" },
   times: { title: "", subtitle: "", description: "" },
@@ -57,7 +61,7 @@ async function addUser(ra, discordid, email, role) {
 
 async function findUser(email) {
   try {
-    const url = `/players?email=${encodeURIComponent(email)}`;
+    const url = `/players?email=${email}`;
 
     console.log(`Buscando jogador com a URL: ${url}`);
 
@@ -167,7 +171,41 @@ async function loadContent() {
   }
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+async function getMe() {
+  try {
+    const response = await api2.get("/data");
+    const emailCheck = response.data.email;
+    const role = await findUser(emailCheck);
+    console.log("Resposta da API recebida:", response);
+    return role;
+  } catch (error) {
+    console.error("Erro ao buscar perfil do usuário logado:", error);
+    throw error;
+  }
+}
+
+window.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const userProfile = await getMe();
+
+    const userRole = userProfile.role;
+
+    console.log(`Usuário logado como: ${userRole}`);
+
+    if (userRole === "admin") {
+      console.log("Permissão de administrador concedida. Exibindo painéis.");
+      document.getElementById("text-editor-card").style.display = "block";
+      document.getElementById("role-assignment-card").style.display = "block";
+    }
+
+    loadContent();
+  } catch (error) {
+    console.error(
+      "Não foi possível obter o perfil do usuário para verificar permissões.",
+      error
+    );
+    // window.location.href = "/";
+  }
   const textSectionSelect = document.getElementById("text-section");
   const textForm = document.getElementById("text-form");
   const searchUserBtn = document.getElementById("search-user");

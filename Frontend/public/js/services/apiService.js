@@ -11,7 +11,7 @@ export default class ApiService {
   }
 
   async checkAuth() {
-    return this.axios.get("/api/data");
+    return api1.get("/api/data");
   }
 
   async getTexts() {
