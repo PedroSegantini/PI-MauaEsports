@@ -104,33 +104,6 @@ PI-MauaEsports/
         └── server.js      # Servidor de autenticação
 ```
 
-### **Passo 5: Configurando um Administrador**
-
-O banco de dados começa vazio. Siga os passos para criar o primeiro usuário `admin`:
-
-1.  **Abra o arquivo `backend/index.js`**.
-2.  **Comente temporariamente** a segurança da rota de criação de jogadores.
-    - **Encontre a linha:**
-      ```javascript
-      app.post("/api/players", protect, admin, async (req, res) => {
-      ```
-    - **Altere para:**
-      ```javascript
-      app.post("/api/players", /* protect, admin, */ async (req, res) => {
-      ```
-3.  Salve o arquivo. O servidor irá reiniciar.
-4.  Use uma ferramenta como **Postman** para fazer uma requisição `POST` para `http://localhost:3000/api/players` com o seguinte `body` em JSON:
-    ```json
-    {
-      "name": "Admin do Sistema",
-      "ra": "admin",
-      "discordId": "0",
-      "password": "admin",
-      "role": "admin"
-    }
-    ```
-5.  Após criar o usuário, **desfaça a alteração no `index.js`** para reativar a segurança da rota.
-
 ### **Passo 5: Como Usar e Testar o Sistema com a Conta de Exemplo**
 
 1.  **Login como Admin:**
