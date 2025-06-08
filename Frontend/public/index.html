@@ -1,278 +1,248 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Site oficial da Mauá Esports — quem somos, nossos times e campeonatos"
-    />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mauaesports.com.br/" />
-    <meta property="og:title" content="Mauá Esports - Times e Campeonatos" />
-    <meta
-      property="og:description"
-      content="Site oficial da Mauá Esports — quem somos, nossos times e campeonatos"
-    />
-    <meta property="og:image" content="img/logoMaua.png" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Site oficial da Mauá Esports — quem somos, nossos times e campeonatos" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://mauaesports.com.br/" />
-    <meta
-      property="twitter:title"
-      content="Mauá Esports - Times e Campeonatos"
-    />
-    <meta
-      property="twitter:description"
-      content="Site oficial da Mauá Esports — quem somos, nossos times e campeonatos"
-    />
-    <meta property="twitter:image" content="img/logoMaua.png" />
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mauaesports.com.br/" />
+  <meta property="og:title" content="Mauá Esports - Times e Campeonatos" />
+  <meta property="og:description" content="Site oficial da Mauá Esports — quem somos, nossos times e campeonatos" />
+  <meta property="og:image" content="img/logoMaua.png" />
 
-    <title>Mauá Esports - Times e Campeonatos</title>
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://mauaesports.com.br/" />
+  <meta property="twitter:title" content="Mauá Esports - Times e Campeonatos" />
+  <meta property="twitter:description"
+    content="Site oficial da Mauá Esports — quem somos, nossos times e campeonatos" />
+  <meta property="twitter:image" content="img/logoMaua.png" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- Custom CSS -->
-    <link href="styles.css" rel="stylesheet" />
-  </head>
+  <title>Mauá Esports - Times e Campeonatos</title>
 
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-      <div class="container position-relative">
-        <a
-          class="navbar-brand position-absolute top-50 start-50 translate-middle"
-          href="#hero"
-        >
-          <img
-            src="img/logoMaua.png"
-            alt="Logo Mauá Esports"
-            height="60"
-          />
-        </a>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+</head>
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container position-relative">
+      <a class="navbar-brand position-absolute top-50 start-50 translate-middle" href="#hero">
+        <img src="img/logoMaua.png" alt="Logo Mauá Esports" height="60" />
+      </a>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto pb-3 pb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="#hero">Início</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#times">Times</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#campeonatos">Campeonatos</a>
-            </li>
-          </ul>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a
-                ><button
-                  class="btn btn-primary"
-                  onclick="window.location.href='/auth/microsoft'"
-                >
-                  Login
-                </button></a
-              >
-            </li>
-          </ul>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto pb-3 pb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#hero">Início</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#campeonatos">Campeonatos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#times">Times</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a><button class="btn btn-primary" onclick="window.location.href='/auth/microsoft'">
+                Login
+              </button></a>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="bg-degrade-upper d-flex align-items-center">
-      <div class="container">
-        <div class="row align-items-center gy-4">
-          <div class="col-lg-6">
-            <h1 class="mb-4">QUEM SOMOS?</h1>
-            <div class="mt-4">
-              <h2 class="h3 team-name">Maua Esports</h2>
-              <p class="text-default">
-                Somos a entidade responsável pela gestão e representação dos
-                times eletrônicos esportivos do Instituto Mauá de Tecnologia.
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <script
-              src="https://static.elfsight.com/platform/platform.js"
-              async
-            ></script>
-            <div
-              class="elfsight-app-e8b65d89-3098-4d02-92c7-831cf10f7cc4"
-              data-elfsight-app-lazy
-            ></div>
+  <!-- Hero  -->
+  <section id="hero" class="bg-degrade-upper d-flex align-items-center">
+    <div class="container">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-6">
+          <h1 class="mb-4" data-content-id="hero-titulo">QUEM SOMOS?</h1>
+          <div class="mt-4">
+            <h2 class="h3 team-name" data-content-id="hero-subtitulo">Mauá Esports</h2>
+            <p class="text-default" data-content-id="hero-paragrafo">
+              Somos a entidade responsável pela gestão e representação dos
+              times eletrônicos esportivos do Instituto Mauá de Tecnologia.
+            </p>
           </div>
         </div>
+        <div class="col-lg-6">
+          <script src="https://static.elfsight.com/platform/platform.js" async></script>
+          <div class="elfsight-app-e8b65d89-3098-4d02-92c7-831cf10f7cc4" data-elfsight-app-lazy></div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Campeonatos Section -->
-    <section id="campeonatos" class="bg-degrade-2 py-5 position-relative">
-      <div class="campeonatos_bg">
+  <!-- Campeonatos  -->
+  <section id="campeonatos" class="bg-degrade-2 py-5 position-relative">
+    <div class="campeonatos_bg">
         <div class="circuit"></div>
         <div class="square"></div>
       </div>
-      <div class="container">
-        <h2 class="text-center mb-4">NOSSOS PROXIMOS CAMPEONATOS</h2>
-        <div class="row g-4 cards-championships">
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card championship-card">
-              <div class="card-body-championship">
-                <p class="card-text text-large">Em breve</p>
-              </div>
+    <div class="container">
+      <h2 class="text-center mb-4" data-content-id="campeonatos-titulo">NOSSOS PRÓXIMOS CAMPEONATOS</h2>
+      <p class="text-center mb-3 h3" data-content-id="campeonatos-subtitulo"></p>
+      <p class="text-default text-center mb-4" data-content-id="campeonatos-paragrafo"></p>
+      <div class="row g-4 cards-championships">
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card championship-card">
+            <div class="card-body-championship">
+              <p class="card-text text-large">Em breve</p>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card championship-card">
-              <div class="card-body-championship">
-                <p class="card-text text-large">Em breve</p>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card championship-card">
+            <div class="card-body-championship">
+              <p class="card-text text-large">Em breve</p>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card championship-card">
-              <div class="card-body-championship">
-                <p class="card-text text-large">Em breve</p>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card championship-card">
+            <div class="card-body-championship">
+              <p class="card-text text-large">Em breve</p>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Times Section -->
-    <section id="times" class="bg-degrade-lower py-5">
-      <div class="container">
-        <h2 class="text-center mb-4">CONHECA NOSSOS TIMES</h2>
-        <p class="h3 text-center mb-3">Essas são nossas equipes Mauá!</p>
-        <p class="text-default text-center mb-5">
-          Aqui estão os melhores jogadores, buscando a vitória dos campeonatos.
-        </p>
-        <div class="row g-4 cards-teams">
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card game-card game-card-lol">
-              <div class="card-body">
-                <h3 class="card-title">League of Legends</h3>
-              </div>
+  <!-- Times  -->
+  <section id="times" class="bg-degrade-lower py-5">
+    <div class="container">
+      <h2 class="text-center mb-4" data-content-id="times-titulo">CONHEÇA NOSSOS TIMES</h2>
+      <p class="h3 text-center mb-3" data-content-id="times-subtitulo">Essas são nossas equipes Mauá!</p>
+      <p class="text-default text-center mb-5" data-content-id="times-paragrafo">
+        Aqui estão os melhores jogadores, buscando a vitória dos campeonatos.
+      </p>
+      <div class="row g-4 cards-teams">
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card game-card game-card-lol">
+            <div class="card-body">
+              <h3 class="card-title">League of Legends</h3>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card game-card game-card-tft">
-              <div class="card-body">
-                <h3 class="card-title">TeamFight Tactics</h3>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card game-card game-card-tft">
+            <div class="card-body">
+              <h3 class="card-title">TeamFight Tactics</h3>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card game-card game-card-valorant">
-              <div class="card-body">
-                <h3 class="card-title">Valorant</h3>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card game-card game-card-valorant">
+            <div class="card-body">
+              <h3 class="card-title">Valorant</h3>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card game-card game-card-cs2">
-              <div class="card-body">
-                <h3 class="card-title">Counter-Strike</h3>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card game-card game-card-cs2">
+            <div class="card-body">
+              <h3 class="card-title">Counter-Strike</h3>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card game-card game-card-eafc">
-              <div class="card-body">
-                <h3 class="card-title">EA FC 24</h3>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card game-card game-card-eafc">
+            <div class="card-body">
+              <h3 class="card-title">EA FC 24</h3>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card game-card game-card-rocket">
-              <div class="card-body">
-                <h3 class="card-title">Rocket League</h3>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card game-card game-card-rocket">
+            <div class="card-body">
+              <h3 class="card-title">Rocket League</h3>
             </div>
           </div>
-          <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-            <div class="card game-card game-card-r6">
-              <div class="card-body">
-                <h3 class="card-title">Rainbow Six</h3>
-              </div>
+        </div>
+        <div class="col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="card game-card game-card-r6">
+            <div class="card-body">
+              <h3 class="card-title">Rainbow Six</h3>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6 d-flex linktree">
-            <p class="text-footer">
-              Visite nosso
-              <a
-                href="https://linktr.ee/mauaesports"
-                class="linktree-link"
-                target="_blank"
-              >
-                Linktree
-              </a>
-            </p>
-          </div>
-          <div class="col-md-6">
-            <div class="social-icons">
-              <a
-                href="https://instagram.com/mauaesports"
-                target="_blank"
-                class="social-icon"
-              >
-                <i class="bi bi-instagram"></i>
-              </a>
-              <a
-                href="https://facebook.com/mauaesports"
-                target="_blank"
-                class="social-icon"
-              >
-                <i class="bi bi-facebook"></i>
-              </a>
-              <a
-                href="https://twitter.com/mauaesports"
-                target="_blank"
-                class="social-icon"
-              >
-                <i class="bi bi-twitter"></i>
-              </a>
-            </div>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 d-flex linktree">
+          <p class="text-footer">
+            Visite nosso
+            <a href="https://linktr.ee/mauaesports" class="linktree-link" target="_blank">
+              Linktree
+            </a>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <div class="social-icons">
+            <a href="https://instagram.com/mauaesports" target="_blank" class="social-icon">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="https://facebook.com/mauaesports" target="_blank" class="social-icon">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="https://twitter.com/mauaesports" target="_blank" class="social-icon">
+              <i class="bi bi-twitter"></i>
+            </a>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <!-- Bootstrap Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-    <!-- Custom JS -->
-    <script src="../src/app.js"></script>
-  </body>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+  <script src="https://static.elfsight.com/platform/platform.js" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="module" src="js/bd-text.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+// Controle da visibilidade da logo no menu mobile
+document.addEventListener('DOMContentLoaded', function() {
+  const navbarToggler = document.querySelector('.navbar-toggler');
+  const navbarBrand = document.querySelector('.navbar-brand');
+  const navbarCollapse = document.querySelector('.navbar-collapse');
+
+  // Função para controlar a visibilidade da logo
+  function toggleLogoVisibility() {
+    if (navbarCollapse.classList.contains('show')) {
+      navbarBrand.style.display = 'none';
+    } else {
+      navbarBrand.style.display = 'block';
+    }
+  }
+
+  // Event listeners para o colapso do menu
+  navbarCollapse.addEventListener('shown.bs.collapse', function() {
+    navbarBrand.style.display = 'none';
+  });
+
+  navbarCollapse.addEventListener('hidden.bs.collapse', function() {
+    navbarBrand.style.display = 'block';
+  });
+});
+</script>
+</body>
+
 </html>

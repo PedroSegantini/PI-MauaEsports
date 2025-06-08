@@ -1,165 +1,192 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Painel do Administrador - Mauá Esports</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link href="styles.css" rel="stylesheet" />
-    <style>
-      body {
-        background-color: #1a1a1a;
-        color: #f0f0f0;
-        padding-top: 2rem;
-        padding-bottom: 2rem;
-      }
-      .table {
-        --bs-table-color: #f0f0f0;
-        --bs-table-bg: #2a2a2a;
-        --bs-table-border-color: #444;
-        --bs-table-hover-color: #fff;
-        --bs-table-hover-bg: #3a3a3a;
-      }
-      .card {
-        background-color: #2a2a2a;
-        border-color: #444;
-      }
-      .form-control,
-      .form-select {
-        background-color: #333;
-        color: #f0f0f0;
-        border-color: #555;
-      }
-      .form-control:focus,
-      .form-select:focus {
-        background-color: #444;
-        color: #f0f0f0;
-        border-color: #0d6efd;
-        box-shadow: none;
-      }
-      .btn-danger {
-        --bs-btn-bg: #dc3545;
-        --bs-btn-border-color: #dc3545;
-        --bs-btn-hover-bg: #bb2d3b;
-        --bs-btn-hover-border-color: #b02a37;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container mt-5">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1 class="mb-0">Painel de Administração Mauá Esports</h1>
-        <a href="index.html" class="btn btn-primary">Sair</a>
-      </div>
-      <div class="card mb-5">
-        <div class="card-header">
-          <h3 id="form-title">Adicionar Novo Jogador</h3>
-        </div>
-        <div class="card-body">
-          <form id="player-form">
-            <input type="hidden" id="playerId" />
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="name" class="form-label">Nome Completo:</label>
-                <input type="text" class="form-control" id="name" required />
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="ra" class="form-label"
-                  >RA (Registro Acadêmico):</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="ra"
-                  placeholder="Ex: 22.01234-5"
-                  required
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="discordId" class="form-label">ID do Discord:</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="discordId"
-                  placeholder="Ex: 123456789012345678"
-                  required
-                />
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="role" class="form-label">Cargo:</label>
-                <select id="role" class="form-select" required>
-                  <option value="player" selected>Jogador</option>
-                  <option value="captain">Capitão</option>
-                  <option value="admin">Administrador</option>
-                </select>
-              </div>
-            </div>
-            <div class="mb-3">
-              <label for="password" class="form-label">Senha:</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                placeholder="Mínimo 6 caracteres"
-                required
-              />
-            </div>
-            <button type="submit" class="btn btn-primary">Salvar</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              id="cancel-edit"
-              style="display: none"
-            >
-              Cancelar Edição
-            </button>
-          </form>
-        </div>
-      </div>
+<html lang="pt-BR">
 
-      <h2>Jogadores Cadastrados</h2>
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>RA</th>
-              <th>ID Discord</th>
-              <th>Cargo</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody id="players-table-body"></tbody>
-        </table>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do Administrador - Mauá Esports</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="styles.css" rel="stylesheet" />
+</head>
+
+<body class="admin-body">
+  <div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="admin-title">Painel de Administração Mauá Esports</h1>
+      <a href="index.html" class="btn btn-primary">
+        <i class="bi bi-box-arrow-left"></i> Sair
+      </a>
+    </div>
+
+    <div class="card admin-card mb-4" id="text-editor-card" style="display: none">
+      <div class="card-header admin-card-header">
+        <h3 class="mb-0">
+          <i class="bi bi-pencil-square panel-icon"></i>
+          Alterar Textos do Site
+        </h3>
+      </div>
+      <div class="card-body">
+        <form id="text-form">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="text-section" class="form-label">Seção do Texto:</label>
+              <select id="text-section" class="form-select admin-form-control" required>
+                <option value="">Selecione a seção</option>
+                <optgroup label="Quem Somos">
+                  <option value="hero.title">Título Principal</option>
+                  <option value="hero.subtitle">Subtítulo</option>
+                  <option value="hero.description">Descrição</option>
+                </optgroup>
+                <optgroup label="Times">
+                  <option value="times.title">Título</option>
+                  <option value="times.subtitle">Subtítulo</option>
+                  <option value="times.description">Descrição</option>
+                </optgroup>
+                <optgroup label="Campeonatos">
+                  <option value="campeonatos.title">Título</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="current-text" class="form-label">Texto atual:</label>
+            <textarea type="text" class="form-control admin-form-control" id="current-text" rows="3" readonly>
+              </textarea>
+          </div>
+          <div class="mb-3">
+            <label for="new-text" class="form-label">Novo Texto:</label>
+            <textarea class="form-control admin-form-control" id="new-text" rows="3"
+              placeholder="Digite o novo texto aqui..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="bi bi-check-circle"></i> Atualizar Texto
+          </button>
+        </form>
+        <div id="text-status" class="status-display" style="display: none">
+          <div class="alert" id="text-alert"></div>
+        </div>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../src/admin.js"></script>
-    <script>
-      window.addEventListener("DOMContentLoaded", async () => {
-        const response = await fetch("/api/data");
-        if (response.status === 401) {
-          window.location.href = "/";
-        } else {
-          const data = await response.json();
-          document.getElementById("welcome").textContent = data.message;
-        }
-      });
+    <div class="card admin-card mb-4" id="role-assignment-card" style="display: none">
+      <div class="card-header admin-card-header">
+        <h3 class="mb-0">
+          <i class="bi bi-person-gear panel-icon"></i>
+          Atribuição de Cargos
+        </h3>
+      </div>
+      <div class="card-body">
+        <form id="role-form">
+          <div class="row">
+            <div class="col-md-8 mb-3">
+              <label for="ra" class="form-label">RA:</label>
+              <input type="text" class="form-control admin-form-control" id="ra" placeholder="2x.xxx-x" required />
+            </div>
+            <div class="col-md-8 mb-3">
+              <label for="discord-id" class="form-label">Discord ID:</label>
+              <input type="text" class="form-control admin-form-control" id="discord-id"
+                placeholder="123123123123123123" required />
+            </div>
+            <div class="col-md-8 mb-3">
+              <label for="user-email" class="form-label">Email do Usuário:</label>
+              <input type="email" class="form-control admin-form-control" id="user-email" placeholder="usuario@maua.br"
+                required />
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="user-role" class="form-label">Cargo:</label>
+              <select id="user-role" class="form-select admin-form-control" required>
+                <option value="">Selecione o cargo</option>
+                <option value="admin">Administrador</option>
+                <option value="captain">Capitão</option>
+                <option value="player">Jogador</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <button type="button" class="btn btn-info me-2" id="search-user">
+              <i class="bi bi-search"></i> Buscar Usuário
+            </button>
+            <button type="submit" class="btn btn-success">
+              <i class="bi bi-person-check"></i> Atribuir Cargo
+            </button>
+          </div>
+        </form>
+        <div id="selected-user" class="user-search-result" style="display: none">
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <p class="mb-1">
+                <strong>RA:</strong> <span id="selected-user-ra"></span>
+              </p>
+              <p class="mb-0">
+                <strong>Email:</strong>
+                <small class="text-muted" id="selected-user-email"></small>
+              </p>
+            </div>
+            <span class="role-badge" id="selected-user-role"></span>
+          </div>
+        </div>
+        <div id="role-status" class="status-display" style="display: none">
+          <div class="alert" id="role-alert"></div>
+        </div>
+      </div>
+    </div>
 
-      async function fetchData() {
-        const response = await fetch("/api/data");
-        if (response.ok) {
-          const data = await response.json();
-          document.getElementById("api-data").textContent =
-            data.data.something.DataArray2;
-        }
-      }
-    </script>
-  </body>
+    <div class="card admin-card mb-4">
+      <div class="card-header admin-card-header">
+        <h3 class="mb-0">
+          <i class="bi bi-clock-history panel-icon"></i>
+          Consulta de Horas PAE
+        </h3>
+      </div>
+      <div class="card-body">
+        <form id="pae-form">
+          <div class="row">
+            <div class="col-md-8 mb-3">
+              <label for="pae-user-email" class="form-label">Email do Usuário:</label>
+              <input type="email" class="form-control admin-form-control" id="pae-user-email"
+                placeholder="usuario@maua.br" required />
+            </div>
+            <div class="col-md-4 mb-3 d-flex align-items-end">
+              <button type="submit" class="btn btn-primary w-100">
+                <i class="bi bi-search"></i> Consultar Horas
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div id="pae-status" class="status-display" style="display: none">
+          <div class="alert" id="pae-alert"></div>
+        </div>
+
+        <div id="pae-results" style="display: none">
+          <div class="status-display">
+            <h5>Informações do Usuário</h5>
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>Nome:</strong> <span id="pae-user-name"></span></p>
+                <p><strong>Email:</strong> <span id="pae-user-email-display"></span></p>
+                <p><strong>RA:</strong> <span id="pae-user-ra"></span></p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>Cargo:</strong> <span class="role-badge" id="pae-user-role"></span></p>
+                <p><strong>Horas PAE Totais:</strong> <span id="pae-total-hours" class="text-info fw-bold"></span></p>
+                <p><strong>Última Atualização:</strong> <span id="pae-last-update"></span></p>
+              </div>
+            </div>
+            <div class="mt-3">
+              <h6>Histórico de Atividades</h6>
+              <div id="pae-activities" class="mt-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/admin.js"></script>
+</body>
+
 </html>
