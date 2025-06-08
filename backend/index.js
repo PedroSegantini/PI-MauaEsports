@@ -10,6 +10,8 @@ const APIESPORTS_URL = "https://API-Esports.lcstuber.net";
 const APIESPORTS_TOKEN = "Bearer frontendmauaesports";
 const MONGODB_URL =
   "mongodb+srv://mauaesportsbd:CDM9fi53PE83cMxI@cluster0.ib4qqro.mongodb.net/mauaesports-db?retryWrites=true&w=majority";
+const ESPORTS_API_URL = "https://api-esports.lcstuber.net/";
+const ESPORTS_API_TOKEN = process.env.ESPORTS_API_TOKEN;
 
 const app = express();
 
@@ -83,6 +85,92 @@ app.patch("/content/:containerId", async (req, res) => {
       message: "Erro interno do servidor ao atualizar o conteúdo.",
       error: error.message,
     });
+  }
+});
+
+app.get("/api/esports/trains", async (req, res) => {
+  if (!ESPORTS_API_TOKEN) {
+    return res.status(500).json({
+      message: "Token da API de eSports não configurado no servidor.",
+    });
+  }
+
+  try {
+    const response = await axios.get(`${ESPORTS_API_URL}/trains/all`, {
+      headers: {
+        Authorization: `Bearer ${ESPORTS_API_TOKEN}`,
+      },
+    });
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error(
+      "Erro ao buscar treinos:",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).json({ message: "Falha ao buscar dados de treinos." });
+  }
+});
+
+app.get("/api/esports/modalities", async (req, res) => {
+  if (!ESPORTS_API_TOKEN) {
+    return res.status(500).json({
+      message: "Token da API de eSports não configurado no servidor.",
+    });
+  }
+
+  try {
+    const response = await axios.get(`${ESPORTS_API_URL}/modality/all`, {
+      headers: {
+        Authorization: `Bearer ${ESPORTS_API_TOKEN}`,
+      },
+    });
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error(
+      "Erro ao buscar modalidades:",
+      error.response ? error.response.data : error.message
+    );
+    res.status(500).json({ message: "Falha ao buscar dados de modalidades." });
+  }
+});
+
+app.patch("/api/esports/modality", async (req, res) => {
+  if (!ESPORTS_API_TOKEN) {
+    return res.status(500).json({
+      message: "Token da API de eSports não configurado no servidor.",
+    });
+  }
+
+  try {
+    const dataToUpdate = req.body;
+
+    if (!dataToUpdate._id || !dataToUpdate.ScheduledTrainings) {
+      return res.status(400).json({
+        message:
+          "Corpo da requisição inválido. É necessário fornecer _id e ScheduledTrainings.",
+      });
+    }
+
+    const response = await axios.patch(
+      `${ESPORTS_API_URL}/modality`,
+      dataToUpdate,
+      {
+        headers: {
+          Authorization: `Bearer ${ESPORTS_API_TOKEN}`,
+        },
+      }
+    );
+
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error(
+      "Erro ao atualizar modalidade:",
+      error.response ? error.response.data : error.message
+    );
+    res
+      .status(500)
+      .json({ message: "Falha ao atualizar dados da modalidade." });
   }
 });
 

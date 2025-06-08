@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const navbarCollapse = document.querySelector(".navbar-collapse");
 
   navbarToggler.addEventListener("click", function () {
-    navbarBrand.classList.toggle("mobile-hidden");
+    navbarBrand.classList.toggle("mobile- dden");
   });
 
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
