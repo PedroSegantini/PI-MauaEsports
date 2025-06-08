@@ -33,3 +33,32 @@ export const createPlayer = async (req, res) => {
       .json({ message: "Erro ao criar jogador.", error: error.message });
   }
 };
+
+export const findUser = async (req, res) => {
+  try {
+    const { email } = req.query;
+    console.log("req.query");
+    console.log(req.query);
+
+    if (!email) {
+      return res
+        .status(400)
+        .json({ message: "O parâmetro 'email' é obrigatório na consulta." });
+    }
+
+    const player = await Player.findOne({ email: email });
+
+    if (!player) {
+      return res
+        .status(404)
+        .json({ message: "Jogador com o email fornecido não encontrado." });
+    }
+
+    res.status(200).json(player);
+  } catch (error) {
+    res.status(500).json({
+      message: "Erro ao buscar jogador por email.",
+      error: error.message,
+    });
+  }
+};

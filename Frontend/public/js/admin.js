@@ -55,6 +55,23 @@ async function addUser(ra, discordid, email, role) {
   }
 }
 
+async function findUser(email) {
+  try {
+    const url = `/players?email=${encodeURIComponent(email)}`;
+
+    console.log(`Buscando jogador com a URL: ${url}`);
+
+    const response = await api1.get(url);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "API Error: Jogador não encontrado ou falha na requisição.",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+}
+
 function showAlert(alertId, statusId, message, type) {
   const alertEl = document.getElementById(alertId);
   const statusEl = document.getElementById(statusId);
@@ -77,7 +94,7 @@ function getRoleName(role) {
 }
 
 function showUserInfo(user) {
-  document.getElementById("selected-user-name").textContent = user.name;
+  document.getElementById("selected-user-ra").textContent = user.ra;
   document.getElementById("selected-user-email").textContent = user.email;
   const roleSpan = document.getElementById("selected-user-role");
   roleSpan.textContent = getRoleName(user.role);
@@ -231,18 +248,34 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  searchUserBtn.addEventListener("click", function () {
-    const email = document.getElementById("user-email").value;
-    const user = mockUsers.find((u) => u.email === email);
-    if (user) {
-      showUserInfo(user);
-    } else {
+  searchUserBtn.addEventListener("click", async () => {
+    const emailInput = document.getElementById("user-email");
+    const email = emailInput.value;
+
+    if (!email) {
       showAlert(
         "role-alert",
         "role-status",
-        "Usuário não encontrado.",
+        "Por favor, digite um email para buscar.",
         "danger"
       );
+      return;
+    }
+
+    try {
+      const player = await findUser(email);
+      showUserInfo(player);
+      showAlert(
+        "role-alert",
+        "role-status",
+        "Usuário encontrado com sucesso!",
+        "success"
+      );
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Usuário não encontrado.";
+      showAlert("role-alert", "role-status", errorMessage, "danger");
+      document.getElementById("selected-user").style.display = "none";
     }
   });
 
