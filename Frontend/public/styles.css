@@ -715,7 +715,6 @@ h6 {
   }
 }
 
-/* Melhorias adicionais para acessibilidade e UX */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -724,14 +723,12 @@ h6 {
   }
 }
 
-/* Suporte para modo escuro do sistema */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
   }
 }
 
-/* Foco visível para acessibilidade */
 .btn:focus,
 .form-control:focus,
 .form-select:focus,

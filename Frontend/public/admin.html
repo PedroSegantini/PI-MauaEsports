@@ -20,7 +20,6 @@
         </a>
       </div>
 
-      <!-- Painel de Alteração de Texto -->
       <div class="card admin-card mb-4">
         <div class="card-header admin-card-header">
           <h3 class="mb-0">
@@ -88,7 +87,6 @@
         </div>
       </div>
 
-      <!-- Painel de Atribuição de Cargos -->
       <div class="card admin-card mb-4">
         <div class="card-header admin-card-header">
           <h3 class="mb-0">
@@ -155,7 +153,6 @@
         </div>
       </div>
 
-      <!-- Painel de Consulta de Horas PAE -->
       <div class="card admin-card mb-4">
         <div class="card-header admin-card-header">
           <h3 class="mb-0">
@@ -225,7 +222,6 @@
       </div>
     </div>
 
-    <!-- Bootstrap Icons -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
@@ -233,7 +229,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // Dados simulados para demonstração
       const textSections = {
         "hero-title": "QUEM SOMOS?",
         "hero-subtitle": "Mauá Esports",
@@ -270,7 +265,6 @@
         },
       ];
 
-      // Atualizar texto atual quando seção é selecionada
       document
         .getElementById("text-section")
         .addEventListener("change", function () {
@@ -278,7 +272,6 @@
           currentTextInput.value = textSections[this.value] || "";
         });
 
-      // Form de alteração de texto
       document
         .getElementById("text-form")
         .addEventListener("submit", function (e) {
@@ -286,7 +279,6 @@
           const section = document.getElementById("text-section").value;
           const newText = document.getElementById("new-text").value;
 
-          // Simular atualização
           textSections[section] = newText;
           document.getElementById("current-text").value = newText;
 
@@ -299,7 +291,6 @@
           document.getElementById("new-text").value = "";
         });
 
-      // Buscar usuário
       document
         .getElementById("search-user")
         .addEventListener("click", function () {
@@ -318,7 +309,6 @@
           }
         });
 
-      // Form de atribuição de cargo
       document
         .getElementById("role-form")
         .addEventListener("submit", function (e) {
@@ -346,7 +336,6 @@
           }
         });
 
-      // Form de consulta PAE
       document
         .getElementById("pae-form")
         .addEventListener("submit", function (e) {
@@ -432,7 +421,6 @@
         }, 5000);
       }
 
-      // Verificar autenticação
       window.addEventListener("DOMContentLoaded", async () => {
         try {
           const response = await fetch("/api/data");

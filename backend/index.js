@@ -22,7 +22,6 @@ const apiEsports = axios.create({
   },
 });
 
-// Middleware
 const corsOptions = {
   origin: "*",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
@@ -41,10 +40,6 @@ async function conectarMongoDB() {
   }
 }
 
-// --- || INÍCIO DAS NOVAS ROTAS DE AUTENTICAÇÃO E JOGADORES || ---
-
-// --- || SUAS ROTAS ANTIGAS (MANTIDAS) || ---
-// ROTA GET para buscar todos os conteúdos
 app.get("/content", async (req, res) => {
   try {
     const allContent = await Content.find({});
@@ -62,7 +57,6 @@ app.get("/content", async (req, res) => {
   }
 });
 
-// ROTA PATCH para editar um conteúdo específico pelo containerId
 app.patch("/content/:containerId", async (req, res) => {
   try {
     const { containerId } = req.params;
@@ -91,9 +85,7 @@ app.patch("/content/:containerId", async (req, res) => {
     });
   }
 });
-// --- || FIM DAS ROTAS ANTIGAS || ---
 
-// Iniciando o servidor
 conectarMongoDB()
   .then(() => {
     app.listen(PORT, () => {
