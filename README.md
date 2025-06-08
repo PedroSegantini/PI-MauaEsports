@@ -58,7 +58,7 @@ Antes de começar, garanta que você tenha o seguinte instalado na sua máquina:
 
 1. Abra um novo terminal PowerShell e execute o seguinte comando para configurar e iniciar o backend:
    ```powershell
-   Set-Location -Path ".\backend"; npm install; npm run dev
+   cd backend; npm install; npm run dev
    ```
 2. Aguarde as mensagens de sucesso:
    - `Conectado ao MongoDB com sucesso!`
@@ -69,7 +69,7 @@ Antes de começar, garanta que você tenha o seguinte instalado na sua máquina:
 
 1. Abra um segundo terminal PowerShell e execute:
    ```powershell
-   Set-Location -Path ".\Frontend"; npm install; Set-Location -Path ".\src"; node server.js
+   cd frontend; npm install; cd src; node server.js
    ```
 2. Aguarde a mensagem de sucesso: `Servidor de autenticação rodando na porta 3000`
 3. **Deixe este terminal rodando também.**
@@ -226,17 +226,19 @@ O projeto usa dois arquivos `.env`:
 
 ```env
 PORT=3001
-MONGODB_URL=seu_mongodb_url
-JWT_SECRET=seu_jwt_secret
+APIESPORTS_URL="[https://API-Esports.lcstuber.net/](https://API-Esports.lcstuber.net/)"
+APIESPORTS_TOKEN="Bearer frontendmauaesports"
+MONGODB_URL="mongodb+srv://mauaesportsbd:CDM9fi53PE83cMxI@cluster0.ib4qqro.mongodb.net/mauaesports-db?retryWrites=true&w=majority"
+JWT_SECRET="maua-esports-2025-um-segredo-muito-forte"
 ```
 
 ### Frontend/src (.env)
 
 ```env
-PORT=3000
-SESSION_SECRET=seu_session_secret
-MICROSOFT_CLIENT_ID=seu_client_id
-MICROSOFT_CLIENT_SECRET=seu_client_secret
+MICROSOFT_CLIENT_ID=a6ac72b4-ce06-4c9a-8fff-30bee5ffd49f
+MICROSOFT_CLIENT_SECRET=Tuo8Q~4~ukEXu1RwSJbEgtU-sPlaxnf7KHuYyarT
+SESSION_SECRET=15jv91n59u1n89un891458uybd8
+MONGODB_URL="mongodb+srv://mauaesportsbd:CDM9fi53PE83cMxI@cluster0.ib4qqro.mongodb.net/mauaesports-db?retryWrites=true&w=majority"
 ```
 
 ---
