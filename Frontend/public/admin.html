@@ -172,6 +172,13 @@
               <button type="submit" class="btn btn-success">
                 <i class="bi bi-person-check"></i> Atribuir Cargo
               </button>
+              <button
+                type="button"
+                class="btn btn-warning me-2"
+                id="update-user-btn"
+              >
+                <i class="bi bi-pencil-fill"></i> Atualizar Informações
+              </button>
             </div>
           </form>
           <div
@@ -190,6 +197,16 @@
                   <strong>Email:</strong>
                   <span id="selected-user-email"></span>
                 </p>
+              </div>
+              <div class="d-flex align-items-center gap-2">
+                <span class="role-badge" id="selected-user-role"></span>
+                <button
+                  type="button"
+                  class="btn btn-danger btn-sm"
+                  id="delete-user-btn"
+                >
+                  <i class="bi bi-trash-fill"></i>
+                </button>
               </div>
               <span class="role-badge" id="selected-user-role"></span>
             </div>

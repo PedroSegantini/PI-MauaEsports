@@ -84,6 +84,36 @@ async function loadContent() {
   }
 }
 
+async function updatePlayer(email, playerData) {
+  try {
+    const url = `/players/${email}`;
+    console.log(`Enviando PUT para ${url} com os dados:`, playerData);
+    const response = await api1.put(url, playerData);
+
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Erro ao atualizar jogador:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+}
+
+async function deletePlayer(email) {
+  try {
+    const url = `/players/${email}`;
+    const response = await api1.delete(url);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Erro ao deletar jogador:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
+}
+
 async function getMe() {
   try {
     const response = await api2.get("/data");
@@ -158,6 +188,79 @@ window.addEventListener("DOMContentLoaded", async () => {
       "save-all-schedules-container"
     );
     const saveAllBtn = document.getElementById("save-all-schedules-btn");
+
+    const updateUserBtn = document.getElementById("update-user-btn");
+    const deleteUserBtn = document.getElementById("delete-user-btn");
+
+    updateUserBtn.addEventListener("click", async () => {
+      const emailToUpdate = document.getElementById("user-email").value;
+
+      if (!emailToUpdate) {
+        showAlert(
+          "role-alert",
+          "role-status",
+          "Primeiro, busque um usuário para poder editar.",
+          "danger"
+        );
+        return;
+      }
+
+      const playerData = {
+        ra: document.getElementById("ra").value,
+        discordid: document.getElementById("discord-id").value,
+        modalityId: document.getElementById("modality-id").value,
+        email: emailToUpdate,
+        role: document.getElementById("user-role").value,
+      };
+
+      try {
+        await updatePlayer(emailToUpdate, playerData);
+
+        showAlert(
+          "role-alert",
+          "role-status",
+          "Usuário atualizado com sucesso!",
+          "success"
+        );
+
+        document.getElementById("role-form").reset();
+        document.getElementById("selected-user").style.display = "none";
+      } catch (error) {
+        const errorMessage =
+          error.response?.data?.message || "Falha ao atualizar usuário.";
+        showAlert("role-alert", "role-status", errorMessage, "danger");
+      }
+    });
+
+    deleteUserBtn.addEventListener("click", async (e) => {
+      const emailToDelete = document.getElementById("user-email").value;
+      console.log(emailToDelete);
+      console.log("emailToDelete");
+
+      if (!emailToDelete) return;
+
+      if (
+        confirm(
+          `Tem certeza que deseja excluir o usuário ${emailToDelete}? Esta ação não pode ser desfeita.`
+        )
+      ) {
+        try {
+          await deletePlayer(emailToDelete);
+          showAlert(
+            "role-alert",
+            "role-status",
+            "Usuário deletado com sucesso!",
+            "success"
+          );
+          document.getElementById("role-form").reset();
+          document.getElementById("selected-user").style.display = "none";
+        } catch (error) {
+          const errorMessage =
+            error.response?.data?.message || "Falha ao deletar usuário.";
+          showAlert("role-alert", "role-status", errorMessage, "danger");
+        }
+      }
+    });
 
     loadSchedulesBtn.addEventListener("click", async () => {
       schedulesContainer.innerHTML =
