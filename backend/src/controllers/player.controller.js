@@ -81,3 +81,22 @@ export const getMe = async (req, res) => {
     });
   }
 };
+
+export const deletePlayer = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedPlayer = await Player.findByIdAndDelete(id);
+
+    if (!deletedPlayer) {
+      return res.status(404).json({ message: "Jogador não encontrado." });
+    }
+
+    res.status(200).json({ message: "Jogador deletado com sucesso." });
+  } catch (error) {
+    res.status(500).json({
+      message: "Erro ao deletar jogador.",
+      error: error.message,
+    });
+  }
+};

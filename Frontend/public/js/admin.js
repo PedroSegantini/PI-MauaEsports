@@ -110,11 +110,175 @@ async function getTeamHours(captainEmail) {
   }
 }
 
+function parseCronToString(cron) {
+  try {
+    const parts = cron.split(" ");
+    const minute = parts[1];
+    const hour = parts[2];
+    const dayOfWeek = parts[5];
+
+    const days = [
+      "Domingo",
+      "Segunda-feira",
+      "Terça-feira",
+      "Quarta-feira",
+      "Quinta-feira",
+      "Sexta-feira",
+      "Sábado",
+    ];
+
+    if (dayOfWeek === "*") return `Todos os dias às ${hour}:${minute}`;
+
+    const dayName = days[parseInt(dayOfWeek)];
+    return `${dayName} às ${hour}:${minute}`;
+  } catch {
+    return "Formato inválido";
+  }
+}
+
+function parseStringToCron(day, time) {
+  const [hour, minute] = time.split(":");
+  return `0 ${minute} ${hour} * * ${day}`;
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
   try {
     const userProfile = await getMe();
-
     const userRole = userProfile.role;
+
+    if (userRole === "admin" || userRole === "captain") {
+      document.getElementById("training-schedule-card").style.display = "block";
+    }
+
+    const loadSchedulesBtn = document.getElementById("load-schedules-btn");
+    const schedulesContainer = document.getElementById(
+      "training-schedules-container"
+    );
+    const saveBtnContainer = document.getElementById(
+      "save-all-schedules-container"
+    );
+    const saveAllBtn = document.getElementById("save-all-schedules-btn");
+
+    loadSchedulesBtn.addEventListener("click", async () => {
+      schedulesContainer.innerHTML =
+        '<p class="text-center">Carregando horários...</p>';
+      try {
+        const response = await api1.get(
+          `/trainings?email=${userProfile.email}`
+        );
+        const schedulesByModality = response.data;
+
+        let finalHtml = "";
+        for (const modalityId in schedulesByModality) {
+          const team = schedulesByModality[modalityId];
+          finalHtml += `
+                    <div class="status-display mb-3" data-modality-id="${modalityId}">
+                        <h5>Horários para: ${team.Name} (${team.Tag})</h5>
+                        <div class="schedule-entries">
+                `;
+          team.ScheduledTrainings.forEach((schedule, index) => {
+            finalHtml += `
+                        <div class="row align-items-center mb-2 schedule-entry" data-index="${index}">
+                            <div class="col-5">
+                                <label class="form-label">Início (CRON)</label>
+                                <input type="text" class="form-control admin-form-control cron-start" value="${
+                                  schedule.Start
+                                }">
+                            </div>
+                            <div class="col-5">
+                                <label class="form-label">Fim (CRON)</label>
+                                <input type="text" class="form-control admin-form-control cron-end" value="${
+                                  schedule.End
+                                }">
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                <button class="btn btn-sm btn-danger remove-schedule-btn">X</button>
+                            </div>
+                            <div class="col-12">Início: ${parseCronToString(
+                              schedule.Start
+                            )} | Fim: ${parseCronToString(schedule.End)}</div>
+                        </div>
+                    `;
+          });
+          finalHtml += `
+                        </div>
+                        <button class="btn btn-sm btn-info mt-2 add-schedule-btn">+ Adicionar Horário</button>
+                    </div>
+                `;
+        }
+        schedulesContainer.innerHTML = finalHtml;
+        saveBtnContainer.style.display = "block";
+      } catch (error) {
+        showAlert(
+          "training-alert",
+          "training-status",
+          "Erro ao carregar horários.",
+          "danger"
+        );
+      }
+    });
+
+    saveAllBtn.addEventListener("click", async () => {
+      const modalityDivs =
+        schedulesContainer.querySelectorAll("[data-modality-id]");
+      try {
+        for (const div of modalityDivs) {
+          const modalityId = div.dataset.modalityId;
+          const newSchedules = [];
+          const entries = div.querySelectorAll(".schedule-entry");
+          entries.forEach((entry) => {
+            const startCron = entry.querySelector(".cron-start").value;
+            const endCron = entry.querySelector(".cron-end").value;
+            if (startCron && endCron) {
+              newSchedules.push({ Start: startCron, End: endCron });
+            }
+          });
+
+          await api1.put(`/trainings/${modalityId}`, {
+            schedules: newSchedules,
+          });
+        }
+        showAlert(
+          "training-alert",
+          "training-status",
+          "Todos os horários foram salvos com sucesso!",
+          "success"
+        );
+      } catch (error) {
+        showAlert(
+          "training-alert",
+          "training-status",
+          "Erro ao salvar os horários.",
+          "danger"
+        );
+      }
+    });
+
+    schedulesContainer.addEventListener("click", (e) => {
+      if (e.target.classList.contains("remove-schedule-btn")) {
+        e.target.closest(".schedule-entry").remove();
+      }
+      if (e.target.classList.contains("add-schedule-btn")) {
+        const entriesContainer = e.target.previousElementSibling;
+        const newEntryHtml = `
+                <div class="row align-items-center mb-2 schedule-entry" data-index="${entriesContainer.children.length}">
+                    <div class="col-5">
+                        <label class="form-label ">Início (CRON)</label>
+                        <input type="text" class="form-control admin-form-control cron-start" value="0 00 18 * * 1">
+                    </div>
+                    <div class="col-5">
+                        <label class="form-label ">Fim (CRON)</label>
+                        <input type="text" class="form-control admin-form-control cron-end" value="0 00 20 * * 1">
+                    </div>
+                    <div class="col-2 d-flex align-items-end">
+                        <button class="btn btn-sm btn-danger remove-schedule-btn">X</button>
+                    </div>
+                    <div class="col-12">Preview será exibido após salvar e recarregar.</div>
+                </div>
+            `;
+        entriesContainer.insertAdjacentHTML("beforeend", newEntryHtml);
+      }
+    });
 
     if (userRole === "admin") {
       document.getElementById("text-editor-card").style.display = "block";
