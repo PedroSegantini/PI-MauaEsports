@@ -2,7 +2,7 @@ import Player from "../models/Player.js";
 
 export const createPlayer = async (req, res) => {
   try {
-    const { ra, discordId, email, role } = req.body;
+    const { ra, modalityId, discordId, email, role } = req.body;
 
     // if (!email || !ra || !discordId) {
     //   return res.status(400).json({
@@ -13,6 +13,7 @@ export const createPlayer = async (req, res) => {
 
     const newPlayer = new Player({
       ra,
+      modalityId,
       discordId,
       email,
       role,
@@ -69,16 +70,14 @@ export const getMe = async (req, res) => {
     if (!playerProfile) {
       return res
         .status(404)
-        .json({ message: "Perfil do jogador não encontrado." });  
+        .json({ message: "Perfil do jogador não encontrado." });
     }
 
     res.status(200).json(playerProfile);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Erro de servidor ao buscar perfil.",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Erro de servidor ao buscar perfil.",
+      error: error.message,
+    });
   }
 };

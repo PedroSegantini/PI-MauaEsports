@@ -1,7 +1,7 @@
 import express from "express";
 import contentRoutes from "./content.routes.js";
-import playerRoutes from "./player.routes.js";
 import paeRoutes from "./pae.routes.js";
+import playerRoutes from "./player.routes.js";
 
 const router = express.Router();
 

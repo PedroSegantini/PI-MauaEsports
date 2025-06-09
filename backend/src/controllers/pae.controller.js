@@ -1,17 +1,10 @@
-import Player from "../models/Player.js";
 import axios from "axios";
+import Player from "../models/Player.js";
 
 export const getMyHours = async (req, res) => {
   try {
     const { email } = req.query;
 
-    if (!email || !email.endsWith("@maua.br")) {
-      return res
-        .status(400)
-        .json({ message: "Email institucional obrigatório." });
-    }
-
-    // 1. Encontra o jogador no seu banco de dados para obter o discordId
     const player = await Player.findOne({ email: email.toLowerCase() });
 
     if (!player) {
@@ -22,7 +15,6 @@ export const getMyHours = async (req, res) => {
 
     const playerDiscordId = player.discordId;
 
-    // 2. Faz a requisição para a API externa de treinos
     const { data: allTrains } = await axios.get(
       "https://API-Esports.lcstuber.net/trains/all",
       {
@@ -32,22 +24,17 @@ export const getMyHours = async (req, res) => {
       }
     );
 
-    // 3. Filtra as sessões corretamente
     const completedSessions = allTrains.filter(
       (session) =>
         session.Status === "ENDED" &&
         session.AttendedPlayers.some((p) => p.PlayerId === playerDiscordId)
     );
 
-    // 4. Mapeia os dados para o formato de resposta, calculando a duração
-    // Bloco corrigido
     const sessions = completedSessions.map((session) => {
-      // 1. Filtra TODAS as presenças do jogador na sessão atual.
       const playerAttendances = session.AttendedPlayers.filter(
         (p) => p.PlayerId === playerDiscordId
       );
 
-      // 2. Soma a duração de cada uma das presenças (conexões).
       const totalDurationForSession = playerAttendances.reduce(
         (total, attendance) => {
           const start = new Date(attendance.EntranceTimestamp);
@@ -55,9 +42,8 @@ export const getMyHours = async (req, res) => {
           return total + (end - start);
         },
         0
-      ); // O acumulador começa em 0.
+      );
 
-      // Pega a primeira entrada e a última saída para referência.
       const firstEntrance = new Date(playerAttendances[0].EntranceTimestamp);
       const lastExit = new Date(
         playerAttendances[playerAttendances.length - 1].ExitTimestamp
@@ -66,19 +52,18 @@ export const getMyHours = async (req, res) => {
       return {
         entrance: firstEntrance,
         exit: lastExit,
-        duration: totalDurationForSession, // Usa a duração total calculada.
+        duration: totalDurationForSession,
         modality: session.ModalityId,
       };
     });
 
-    // 5. Calcula o total de horas
     const totalMilliseconds = sessions.reduce((acc, s) => acc + s.duration, 0);
     const totalHours = (totalMilliseconds / 1000 / 60 / 60).toFixed(2);
 
-    // 6. Retorna a resposta completa para o frontend
     const responsePayload = {
-      name: player.name || `Usuário RA ${player.ra}`,
+      ra: player.ra,
       email: player.email,
+      role: player.role,
       hours: parseFloat(totalHours),
       sessions,
     };
@@ -88,6 +73,104 @@ export const getMyHours = async (req, res) => {
     console.error("[BACKEND] Erro em /my-hours:", error.message);
     return res.status(500).json({
       message: "Erro ao consultar horas PAE.",
+      error: error.message,
+    });
+  }
+};
+
+export const getTeamHours = async (req, res) => {
+  const calculatePlayerHours = (player, allTrains) => {
+    const playerDiscordId = player.discordId;
+
+    const completedSessions = allTrains.filter(
+      (session) =>
+        session.Status === "ENDED" &&
+        session.AttendedPlayers.some((p) => p.PlayerId === playerDiscordId)
+    );
+
+    const sessions = completedSessions.map((session) => {
+      const playerAttendances = session.AttendedPlayers.filter(
+        (p) => p.PlayerId === playerDiscordId
+      );
+      const totalDurationForSession = playerAttendances.reduce(
+        (total, attendance) => {
+          const start = new Date(attendance.EntranceTimestamp);
+          const end = new Date(attendance.ExitTimestamp);
+          return total + (end - start);
+        },
+        0
+      );
+      const firstEntrance = new Date(playerAttendances[0].EntranceTimestamp);
+      const lastExit = new Date(
+        playerAttendances[playerAttendances.length - 1].ExitTimestamp
+      );
+
+      return {
+        entrance: firstEntrance,
+        exit: lastExit,
+        duration: totalDurationForSession,
+        modality: session.ModalityId,
+      };
+    });
+
+    const totalMilliseconds = sessions.reduce((acc, s) => acc + s.duration, 0);
+    const totalHours = (totalMilliseconds / 1000 / 60 / 60).toFixed(2);
+
+    return {
+      ra: player.ra,
+      email: player.email,
+      role: player.role,
+      hours: parseFloat(totalHours),
+      sessions,
+    };
+  };
+
+  try {
+    const { email } = req.query;
+
+    const captain = await Player.findOne({ email: email.toLowerCase() });
+
+    if (!captain) {
+      return res
+        .status(404)
+        .json({ message: "Capitão não encontrado em nosso banco de dados." });
+    }
+    if (!captain.modalityId) {
+      return res
+        .status(400)
+        .json({ message: "Este jogador não está em uma equipe." });
+    }
+
+    const teammates = await Player.find({
+      modalityId: captain.modalityId,
+      _id: { $ne: captain._id },
+    });
+
+    const { data: allTrains } = await axios.get(
+      "https://API-Esports.lcstuber.net/trains/all",
+      { headers: { Authorization: "Bearer frontendmauaesports" } }
+    );
+
+    const captainData = calculatePlayerHours(captain, allTrains);
+
+    const teamData = teammates.map((teammate) =>
+      calculatePlayerHours(teammate, allTrains)
+    );
+
+    const responsePayload = {
+      ra: captainData.ra,
+      email: captainData.email,
+      role: captainData.role,
+      hours: captainData.hours,
+      sessions: captainData.sessions,
+      teamData,
+    };
+
+    return res.status(200).json(responsePayload);
+  } catch (error) {
+    console.error("[BACKEND] Erro em /team-hours:", error.message);
+    return res.status(500).json({
+      message: "Erro ao consultar horas da equipe.",
       error: error.message,
     });
   }

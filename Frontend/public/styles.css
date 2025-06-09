@@ -575,10 +575,12 @@ h6 {
 /* Status Display */
 .status-display {
   background-color: var(--color-admin-card-header);
+  font-size: var(--font-size-base);
   border-radius: 8px;
   padding: 1rem;
   margin-top: 1rem;
   border-left: 4px solid var(--color-primary);
+  color: #ffffff;
 }
 
 /* Alertas */
@@ -610,6 +612,11 @@ h6 {
   border: 1px solid #555;
   transition: all 0.3s ease;
   font-family: var(--font-primary);
+  color: #ffffff;
+}
+
+.info-usuario-box {
+  font-size: 1.1rem;
 }
 
 .user-search-result:hover {

@@ -1,8 +1,9 @@
 import express from "express";
-import { getMyHours } from "../controllers/pae.controller.js";
+import { getMyHours, getTeamHours } from "../controllers/pae.controller.js";
 
 const router = express.Router();
 
 router.get("/my-hours", getMyHours);
+router.get("/team-hours", getTeamHours);
 
 export default router;
