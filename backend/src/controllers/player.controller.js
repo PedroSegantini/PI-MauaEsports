@@ -2,7 +2,7 @@ import Player from "../models/Player.js";
 
 export const createPlayer = async (req, res) => {
   try {
-    const { ra, discordId, email, role } = req.body;
+    const { ra, modalityId, discordId, email, role } = req.body;
 
     // if (!email || !ra || !discordId) {
     //   return res.status(400).json({
@@ -13,6 +13,7 @@ export const createPlayer = async (req, res) => {
 
     const newPlayer = new Player({
       ra,
+      modalityId,
       discordId,
       email,
       role,
@@ -69,16 +70,59 @@ export const getMe = async (req, res) => {
     if (!playerProfile) {
       return res
         .status(404)
-        .json({ message: "Perfil do jogador não encontrado." });  
+        .json({ message: "Perfil do jogador não encontrado." });
     }
 
     res.status(200).json(playerProfile);
   } catch (error) {
+    res.status(500).json({
+      message: "Erro de servidor ao buscar perfil.",
+      error: error.message,
+    });
+  }
+};
+
+export const updatePlayer = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const updateData = req.body;
+
+    const updatedPlayer = await Player.findOneAndUpdate(
+      { email: email },
+      updateData,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedPlayer) {
+      return res.status(404).json({
+        message:
+          "Jogador com o email fornecido não encontrado para atualização.",
+      });
+    }
+
+    res.status(200).json(updatedPlayer);
+  } catch (error) {
     res
       .status(500)
-      .json({
-        message: "Erro de servidor ao buscar perfil.",
-        error: error.message,
-      });
+      .json({ message: "Erro ao atualizar jogador.", error: error.message });
+  }
+};
+
+export const deletePlayer = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const deletedPlayer = await Player.findOneAndDelete({ email: email });
+
+    if (!deletedPlayer) {
+      return res
+        .status(404)
+        .json({ message: "Jogador não encontrado para deleção." });
+    }
+
+    res.status(200).json({ message: "Jogador deletado com sucesso." });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erro ao deletar jogador.", error: error.message });
   }
 };
