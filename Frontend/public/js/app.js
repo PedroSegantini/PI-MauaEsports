@@ -6,7 +6,6 @@ class PublicPage {
     this.api = new ApiService();
     this.navbar = new Navbar();
   }
-
 }
 
 document.addEventListener("DOMContentLoaded", () => {
