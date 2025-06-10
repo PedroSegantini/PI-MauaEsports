@@ -1,6 +1,6 @@
 /* Imports - Fonte Inter para melhor suporte PT-BR */
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap");
-@import url(https://db.onlinewebfonts.com/c/7a9ddc1b445c1713f7ad1cf3de47edd7?family=Agency+FB);
+@import url("https://db.onlinewebfonts.com/c/7a9ddc1b445c1713f7ad1cf3de47edd7?family=Agency+FB");
 
 /* Variáveis Globais */
 :root {
@@ -23,6 +23,7 @@
   --color-admin-border: #444;
   --color-admin-input: #333;
   --color-admin-input-focus: #444;
+
   /* Tipografia */
   --font-size-xs: 10pt;
   --font-size-sm: 12pt;
@@ -36,9 +37,18 @@
   /* Fontes */
   --font-primary: "Agency FB", sans-serif;
   --font-heading: "Orbitron", "Inter", sans-serif;
+
+  /* Transições */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Sombras */
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-hover: 0 8px 25px rgba(0, 205, 255, 0.2);
 }
 
-/* Reset Global */
+/* Reset Global e Base */
 *,
 *::before,
 *::after {
@@ -47,7 +57,6 @@
   box-sizing: border-box;
 }
 
-/* Estilos Base */
 html,
 body {
   min-height: 100dvh;
@@ -62,6 +71,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Tipografia */
 h1,
 h2,
 h3,
@@ -73,7 +83,6 @@ h6 {
   color: var(--color-primary);
 }
 
-/* Classes Utilitárias */
 .text-default,
 .text-large {
   line-height: 1.6;
@@ -96,7 +105,7 @@ h6 {
   color: var(--color-logo1);
   background-color: var(--color-btn-primary);
   border-color: var(--color-btn-primary);
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   padding: 0.5rem 1.5rem;
   font-family: var(--font-primary);
   font-size: var(--font-size-lg);
@@ -118,24 +127,25 @@ h6 {
   transform: translateY(0);
 }
 
-.btn-success {
-  background-color: #198754;
-  border-color: #198754;
+.btn-success,
+.btn-info {
   border-radius: 8px;
   font-weight: 500;
   font-family: var(--font-primary);
+}
+
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
 }
 
 .btn-info {
   background-color: #0dcaf0;
   border-color: #0dcaf0;
   color: #000;
-  border-radius: 8px;
-  font-weight: 500;
-  font-family: var(--font-primary);
 }
 
-/* degrade background */
+/* Backgrounds com Gradiente */
 .bg-degrade-upper {
   background: linear-gradient(
     135deg,
@@ -167,23 +177,20 @@ h6 {
   background-color: var(--color-logo1);
   padding: 0.5rem 0;
   z-index: 999999;
-  transition: all 0.5s ease;
+  transition: all var(--transition-slow);
 }
-/* efeito scroll transparente */
+
 .navbar::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: linear-gradient(
     90deg,
     var(--color-logo1),
     var(--color-primary-nav),
     var(--color-logo1)
   );
-  transition: opacity 0.3s ease;
+  transition: opacity var(--transition-normal);
   z-index: -1;
 }
 
@@ -195,10 +202,9 @@ h6 {
 .navbar.rolagem::before {
   opacity: 0.67;
 }
-/*fim do efeito scroll */
 
 .navbar-brand img {
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
 }
 
 .navbar-brand img:hover {
@@ -210,7 +216,7 @@ h6 {
   font-family: var(--font-primary);
   font-size: var(--font-size-lg);
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color var(--transition-normal);
 }
 
 .nav-link:hover {
@@ -237,7 +243,6 @@ h6 {
   min-height: 55dvh;
   width: 100%;
   padding: 2rem 0;
-
   border-top: 2px solid var(--color-border);
   border-bottom: 2px solid var(--color-border);
 }
@@ -303,25 +308,28 @@ h6 {
   object-fit: cover;
 }
 
-/* Seção Times */
+/* Cards Base */
+.game-card,
+.championship-card {
+  transition: all var(--transition-normal);
+  border-radius: 12px;
+  cursor: pointer;
+}
 
 /* Cards dos Times */
 .game-card {
   background-color: var(--color-bg);
   border: 1px solid var(--color-btn-hover);
-  transition: all 0.3s ease;
   height: 300px;
   background-size: cover;
   background-position: center;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
-  border-radius: 12px;
 }
 
 .game-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 205, 255, 0.2);
+  box-shadow: var(--shadow-hover);
 }
 
 .game-card::before {
@@ -344,24 +352,17 @@ h6 {
   z-index: 2;
 }
 
-.card-body-championship {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.game-card .card-title {
+  color: var(--color-white);
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  margin: 0;
+  text-align: left;
+  font-family: var(--font-primary);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.cards-teams,
-.cards-championships {
-  display: flex;
-  justify-content: center;
-}
-
-.cards-championships {
-  margin-top: 0.5rem;
-}
-
-/* Backgrounds dos Cards */
+/* Backgrounds dos Cards - Consolidados */
 .game-card-lol {
   background-image: url("img/teams/lol.webp");
 }
@@ -384,20 +385,7 @@ h6 {
   background-image: url("img/teams/r6.webp");
 }
 
-.game-card .card-title {
-  color: var(--color-white);
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  margin: 0;
-  text-align: left;
-  font-family: var(--font-primary);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* Seção Campeonatos */
-
-
-
+/* Cards dos Campeonatos */
 .championship-card {
   background-color: var(--color-bg);
   border: 1px solid var(--color-white);
@@ -406,8 +394,6 @@ h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
-  transition: all 0.3s ease;
 }
 
 .championship-card:hover {
@@ -422,22 +408,34 @@ h6 {
   font-weight: 600;
 }
 
+.card-body-championship {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards-teams,
+.cards-championships {
+  display: flex;
+  justify-content: center;
+}
+
+.cards-championships {
+  margin-top: 0.5rem;
+}
+
+/* Background da Seção Campeonatos */
 .campeonatos_bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   overflow: hidden;
   background-color: var(--color-logo1);
 }
 
 .circuit {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-image: url("img/bg/circuit-board.svg");
   background-repeat: repeat;
   mix-blend-mode: soft-light;
@@ -446,10 +444,7 @@ h6 {
 
 .square {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   mix-blend-mode: soft-light;
   background-image: url("img/bg/noise.webp");
   background-repeat: repeat;
@@ -473,7 +468,7 @@ h6 {
   text-decoration: none;
   font-size: var(--font-size-lg);
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color var(--transition-normal);
 }
 
 .linktree-link:hover {
@@ -489,7 +484,7 @@ h6 {
 .social-icon {
   color: var(--color-primary);
   font-size: var(--font-size-2xl);
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
 }
 
 .social-icon:hover {
@@ -497,17 +492,13 @@ h6 {
   transform: scale(1.2);
 }
 
-/* ========== ESTILOS ESPECÍFICOS DO ADMIN ========== */
-
-/* Body do Admin */
+/* ========== ESTILOS ADMIN ========== */
 .admin-body {
   background-color: var(--color-admin-bg);
   color: #f0f0f0;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding: 2rem 0;
 }
 
-/* Título do Admin */
 .admin-title {
   background: linear-gradient(135deg, #0d6efd, #6610f2);
   -webkit-background-clip: text;
@@ -519,12 +510,11 @@ h6 {
   font-family: var(--font-heading);
 }
 
-/* Cards do Admin */
 .admin-card {
   background-color: var(--color-admin-card);
   border-color: var(--color-admin-border);
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-card);
 }
 
 .admin-card-header {
@@ -539,7 +529,6 @@ h6 {
   font-weight: 600;
 }
 
-/* Formulários do Admin */
 .admin-form-control {
   background-color: var(--color-admin-input);
   color: #ffffff;
@@ -547,7 +536,7 @@ h6 {
   border-radius: 8px;
   font-family: var(--font-primary);
   font-weight: 400;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
 }
 
 .admin-form-control::placeholder {
@@ -561,7 +550,6 @@ h6 {
   box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
-/* Labels do Admin */
 .form-label {
   color: var(--color-primary);
   font-size: var(--font-size-lg);
@@ -570,14 +558,12 @@ h6 {
   margin-bottom: 0.5rem;
 }
 
-/* Ícones dos Painéis */
 .panel-icon {
   font-size: 1.5rem;
   margin-right: 0.5rem;
   color: var(--color-primary);
 }
 
-/* Status Display */
 .status-display {
   background-color: var(--color-admin-card-header);
   border-radius: 8px;
@@ -627,16 +613,21 @@ h6 {
   border-left: 4px solid #dc3545;
 }
 
-/* Resultados de Busca de Usuário */
+/* Resultados de Busca e Badges */
 .user-search-result {
   background-color: var(--color-admin-card-header);
   border-radius: 8px;
   padding: 0.75rem;
   margin-top: 0.5rem;
   border: 1px solid #555;
-  transition: all 0.3s ease;
+  transition: all var(--transition-normal);
   font-family: var(--font-primary);
   color: #ffffff;
+}
+
+.user-search-result:hover {
+  background-color: var(--color-admin-input-focus);
+  cursor: pointer;
 }
 
 .user-search-result small.text-muted {
@@ -647,12 +638,6 @@ h6 {
   color: #ffffff;
 }
 
-.user-search-result:hover {
-  background-color: var(--color-admin-input-focus);
-  cursor: pointer;
-}
-
-/* Badges de Cargo */
 .role-badge {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
@@ -676,13 +661,31 @@ h6 {
   color: #9eeaf9;
 }
 
-/* Tabela de Jogadores */
+/* Tabelas */
 .table-responsive {
   margin: 1rem 0;
   border-radius: 0.25rem;
   overflow: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.table-responsive::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 #players-table {
@@ -730,30 +733,11 @@ h6 {
 }
 
 .delete-player {
-  transition: all 0.2s ease-in-out;
+  transition: all var(--transition-fast);
 }
 
 .delete-player:hover {
   transform: scale(1.05);
-}
-
-/* Scrollbar personalizada para tabelas */
-.table-responsive::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.table-responsive::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.table-responsive::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-}
-
-.table-responsive::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Responsividade */
@@ -835,7 +819,7 @@ h6 {
   }
 }
 
-/* Melhorias adicionais para acessibilidade e UX */
+/* Acessibilidade e UX */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -844,14 +828,12 @@ h6 {
   }
 }
 
-/* Suporte para modo escuro do sistema */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
   }
 }
 
-/* Foco visível para acessibilidade */
 .btn:focus,
 .form-control:focus,
 .form-select:focus,
