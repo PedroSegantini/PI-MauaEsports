@@ -2,19 +2,20 @@ export default class Navbar {
   constructor() {
     this.navbar = document.querySelector(".navbar");
     this.navbarToggler = document.querySelector(".navbar-toggler");
-    this.navbarBrand = document.querySelector(".navbar-brand");
     this.navbarCollapse = document.querySelector(".navbar-collapse");
     this.navLinks = document.querySelectorAll(".nav-link");
     this.sections = document.querySelectorAll("section");
+
+    if (this.navbarCollapse) {
+      this.bootstrapCollapse = new bootstrap.Collapse(this.navbarCollapse, {
+        toggle: false,
+      });
+    }
 
     this.addEventListeners();
   }
 
   addEventListeners() {
-    this.navbarToggler.addEventListener("click", () => {
-      this.navbarBrand.classList.toggle("mobile-hidden");
-    });
-
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener("click", (e) =>
         this.handleSmoothScroll(e, anchor)
@@ -32,9 +33,9 @@ export default class Navbar {
     const target = document.querySelector(anchor.getAttribute("href"));
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
-      if (this.navbarCollapse.classList.contains("show")) {
-        this.navbarCollapse.classList.remove("show");
-        this.navbarBrand.classList.remove("mobile-hidden");
+
+      if (this.bootstrapCollapse) {
+        this.bootstrapCollapse.hide();
       }
     }
   }

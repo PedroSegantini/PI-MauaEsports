@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar.js";
-import ApiService from "./services/ApiService.js";
+import ApiService from "./services/apiService.js";
 
 class PublicPage {
   constructor() {
