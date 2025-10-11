@@ -34,11 +34,11 @@
 
 ---
 
-<p align="center">
-  <video src="Frontend/public/videos/demonstracao Maua esports.mp4" autoplay loop muted width="800">
-    Your browser does not support the video element.
-  </video>
-</p>
+
+
+https://github.com/user-attachments/assets/55f16509-0100-4e69-b79c-6ade5c883d21
+
+
 
 **Mauá Esports Portal** is a complete web platform for managing teams, championships and training hours for Mauá Esports.
 
