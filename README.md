@@ -2,10 +2,10 @@
   <img src="Frontend/public/img/logoMaua.png" alt="Logo Mauá Esports" width="200"/>
 </p>
 
-<h1 align="center">Portal Mauá Esports</h1>
+<h1 align="center">Projeto Portal Mauá Esports</h1>
 
 <p align="center">
-  <strong>Portal oficial da Mauá Esports</strong><br>
+  <strong>Projeto Acadêmico do Portal da Mauá Esports</strong><br>
   <em>Gestão de times, campeonatos e horas de treino</em>
 </p>
 
