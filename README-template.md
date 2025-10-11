@@ -154,5 +154,3 @@ Contributions are welcome! Submit a Pull Request or open an issue.
 ## 📄 License
 
 This project is under the MIT License.
-
-
