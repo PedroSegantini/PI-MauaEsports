@@ -5,8 +5,8 @@
 <h1 align="center">Mauá Esports Portal</h1>
 
 <p align="center">
-  <strong>Portal oficial da Mauá Esports</strong><br>
-  <em>Gestão de times, campeonatos e horas de treino</em>
+  <strong>Official portal for Mauá Esports</strong><br>
+  <em>Team, championship and training hours management</em>
 </p>
 
 <p align="center">
@@ -14,9 +14,9 @@
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="https://github.com/PedroSegantini/PI-MauaEsports/releases" target="_blank">📦 Downloads</a>
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/PedroSegantini/PI-MauaEsports" target="_blank">📚 Repositório Original</a>
+  <a href="https://github.com/PedroSegantini/PI-MauaEsports" target="_blank">📚 Original Repository</a>
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/PedroSegantini/PI-MauaEsports/issues" target="_blank">🐛 Reportar Bug</a>
+  <a href="https://github.com/PedroSegantini/PI-MauaEsports/issues" target="_blank">🐛 Report Bug</a>
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="https://www.linkedin.com/in/pedrosegantini/" target="_blank">💼 LinkedIn</a>
 </p>
@@ -42,55 +42,55 @@
   <img src="Frontend/public/img/bg/teams/eafc24.avif" alt="Showcase Mauá Esports"/>
 </p>
 
-**Mauá Esports Portal** é uma plataforma web completa para gestão dos times, campeonatos e horas de treino da entidade Mauá Esports.
+**Mauá Esports Portal** is a complete web platform for managing teams, championships and training hours for Mauá Esports.
 
-> 📚 **Evolução do Projeto**: O sistema foi migrado para Node.js, Express e MongoDB, com frontend moderno em HTML, CSS e JavaScript, integrando autenticação Microsoft e painel administrativo completo.
+> 📚 **Project Evolution**: The system was migrated to Node.js, Express and MongoDB, with a modern frontend in HTML, CSS and JavaScript, integrating Microsoft authentication and a complete admin panel.
 
-## 🎓 Funcionalidades Principais
+## 🎓 Main Features
 
-- **Site Público:** Apresentação institucional, times, campeonatos e redes sociais.
-- **Painel do Administrador:** CRUD de jogadores, atribuição de cargos, edição de textos do site, consulta de horas PAE, edição de horários de treino.
-- **Área do Jogador:** Login individual, consulta de horas de treino acumuladas.
-- **API Backend:** Gerenciamento de usuários, conteúdos dinâmicos, horários e integração com MongoDB Atlas.
+- **Public Site:** Institutional presentation, teams, championships and social networks.
+- **Admin Panel:** CRUD for players, role assignment, site text editing, training hours query, training schedule editing.
+- **Player Area:** Individual login, query of accumulated training hours.
+- **Backend API:** User management, dynamic content, schedules and integration with MongoDB Atlas.
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Technologies Used
 
 - **Backend:** Node.js, Express, MongoDB, Mongoose, JWT, Bcrypt.js, Axios
 - **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5, Axios
-- **Autenticação:** Microsoft OAuth (passport-microsoft)
-- **Infraestrutura:** MongoDB Atlas, dotenv
+- **Authentication:** Microsoft OAuth (passport-microsoft)
+- **Infrastructure:** MongoDB Atlas, dotenv
 
-## 🚀 Como Instalar e Rodar
+## 🚀 How to Install and Run
 
-### Pré-requisitos
+### Prerequisites
 
 - Node.js 18+
-- VS Code (Live Server recomendado)
+- VS Code (Live Server recommended)
 
-### Passos
+### Steps
 
-1. Clone o repositório:
+1. Clone the repository:
    ```bash
    git clone https://github.com/PedroSegantini/PI-MauaEsports.git
    cd PI-MauaEsports
    ```
-2. Configure o backend:
+2. Set up the backend:
    ```bash
    cd backend
    npm install
-   cp .env.example .env # Edite com suas credenciais se necessário
+   cp .env.example .env # Edit with your credentials if needed
    npm run dev
    ```
-3. Inicie o frontend:
-   - Abra `Frontend/public/index.html` com Live Server ou servidor local.
+3. Start the frontend:
+   - Open `Frontend/public/index.html` with Live Server or a local server.
 
-### Criando o primeiro admin
+### Creating the first admin
 
-1. Comente temporariamente a proteção da rota POST `/api/players` em `backend/index.js`.
-2. Crie o usuário admin via Postman ou similar:
+1. Temporarily comment out the protection for the POST `/api/players` route in `backend/index.js`.
+2. Create the admin user via Postman or similar:
    ```json
    {
-     "name": "Admin do Sistema",
+     "name": "System Admin",
      "ra": "admin",
      "discordId": "0",
      "email": "admin@maua.br",
@@ -98,66 +98,66 @@
      "role": "admin"
    }
    ```
-3. Desfaça o comentário para reativar a proteção.
+3. Undo the comment to reactivate protection.
 
-## 🌐 Customização
+## 🌐 Customization
 
-O portal permite editar textos institucionais, cadastrar times, campeonatos e gerenciar usuários via painel admin.
+The portal allows you to edit institutional texts, register teams, championships and manage users via the admin panel.
 
-## Endpoints Principais
+## Main Endpoints
 
-| Método | Rota                   | Descrição                            | Acesso       |
-| ------ | ---------------------- | ------------------------------------ | ------------ |
-| POST   | /login                 | Autentica usuário e retorna JWT      | Público      |
-| GET    | /api/players           | Lista todos os usuários              | Admin        |
-| POST   | /api/players           | Cria novo usuário                    | Admin        |
-| PUT    | /api/players/:email    | Atualiza usuário                     | Admin        |
-| DELETE | /api/players/:email    | Deleta usuário                       | Admin        |
-| GET    | /api/my-hours          | Consulta horas de treino do usuário  | Logado       |
-| GET    | /content               | Busca conteúdo editável do site      | Público      |
-| PATCH  | /content/:containerId  | Atualiza conteúdo específico do site | Admin        |
-| GET    | /trainings             | Consulta horários de treino          | Logado/Admin |
-| PUT    | /trainings/:modalityId | Atualiza horários de treino          | Admin        |
+| Method | Route                  | Description                        | Access       |
+| ------ | ---------------------- | ---------------------------------- | ------------ |
+| POST   | /login                 | Authenticates user and returns JWT | Public       |
+| GET    | /api/players           | Lists all users                    | Admin        |
+| POST   | /api/players           | Creates new user                   | Admin        |
+| PUT    | /api/players/:email    | Updates user                       | Admin        |
+| DELETE | /api/players/:email    | Deletes user                       | Admin        |
+| GET    | /api/my-hours          | Query user's training hours        | Logged in    |
+| GET    | /content               | Fetch editable site content        | Public       |
+| PATCH  | /content/:containerId  | Update specific site content       | Admin        |
+| GET    | /trainings             | Query training schedules           | Logged/Admin |
+| PUT    | /trainings/:modalityId | Update training schedules          | Admin        |
 
-## 💻 Para Desenvolvedores
+## 💻 For Developers
 
 ```bash
-# 1. Clone o repositório
+# 1. Clone the repository
 git clone https://github.com/PedroSegantini/PI-MauaEsports.git
 
-# 2. Instale dependências do backend
+# 2. Install backend dependencies
 cd backend
 npm install
 
-# 3. Instale dependências do frontend (se necessário)
+# 3. Install frontend dependencies (if needed)
 cd ../Frontend
 npm install
 
-# 4. Rode o backend
+# 4. Run the backend
 cd ../backend
 npm run dev
 
-# 5. Rode o frontend
-# Use Live Server ou abra index.html
+# 5. Run the frontend
+# Use Live Server or open index.html
 ```
 
-## 📚 Público-Alvo
+## 📚 Target Audience
 
-- **Gestores de times universitários**
-- **Jogadores e capitães**
-- **Admins de entidades esportivas**
-- **Desenvolvedores interessados em Node.js/Express/MongoDB**
+- **University team managers**
+- **Players and captains**
+- **Sports entity admins**
+- **Developers interested in Node.js/Express/MongoDB**
 
-## 🤝 Contribuição
+## 🤝 Contributing
 
-Contribuições são bem-vindas! Envie um Pull Request ou abra uma issue.
+Contributions are welcome! Submit a Pull Request or open an issue.
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está sob a Licença MIT.
+This project is under the MIT License.
 
 ---
 
 <p align="center">
-  Feito com ❤️ por <a href="https://www.linkedin.com/in/pedrosegantini/" target="_blank">Pedro Segantini</a>
+  Made with ❤️ by <a href="https://www.linkedin.com/in/pedrosegantini/" target="_blank">Pedro Segantini</a>
 </p>
