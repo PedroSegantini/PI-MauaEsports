@@ -152,8 +152,4 @@ Contributions are welcome! Submit a Pull Request or open an issue.
 
 This project is under the MIT License.
 
----
 
-<p align="center">
-  Made with ❤️ by <a href="https://www.linkedin.com/in/pedrosegantini/" target="_blank">Pedro Segantini</a>
-</p>

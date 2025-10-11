@@ -151,9 +151,3 @@ Contribuições são bem-vindas! Envie um Pull Request ou abra uma issue.
 ## 📄 Licença
 
 Este projeto está sob a Licença MIT.
-
----
-
-<p align="center">
-  Feito com ❤️ por <a href="https://www.linkedin.com/in/pedrosegantini/" target="_blank">Pedro Segantini</a>
-</p>
