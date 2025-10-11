@@ -35,7 +35,10 @@
 ---
 
 <p align="center">
-  <img src="Frontend/public/img/bg/teams/eafc24.avif" alt="Demonstração Mauá Esports"/>
+  <video autoplay loop muted playsinline style="max-width: 100%; height: auto;">
+    <source src="Frontend/public/videos/demonstracao Maua esports.mp4" type="video/mp4">
+    Seu navegador não suporta o elemento de vídeo.
+  </video>
 </p>
 
 **Portal Mauá Esports** é uma plataforma web completa para gestão dos times, campeonatos e horas de treino da entidade Mauá Esports.

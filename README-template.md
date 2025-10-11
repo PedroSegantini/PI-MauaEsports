@@ -35,7 +35,10 @@
 ---
 
 <p align="center">
-  <img src="Frontend/public/img/bg/teams/eafc24.avif" alt="Showcase Mauá Esports"/>
+  <video autoplay loop muted playsinline style="max-width: 100%; height: auto;">
+    <source src="Frontend/public/videos/demonstracao Maua esports.mp4" type="video/mp4">
+    Your browser does not support the video element.
+  </video>
 </p>
 
 **Mauá Esports Portal** is a complete web platform for managing teams, championships and training hours for Mauá Esports.
