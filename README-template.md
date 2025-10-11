@@ -35,10 +35,7 @@
 ---
 
 <p align="center">
-  <video autoplay loop muted playsinline style="max-width: 100%; height: auto;">
-    <source src="Frontend/public/videos/demonstracao Maua esports.mp4" type="video/mp4">
-    Your browser does not support the video element.
-  </video>
+  <img src="Frontend/public/videos/demonstracao Maua esports.gif" alt="Mauá Esports Demo" width="800"/>
 </p>
 
 **Mauá Esports Portal** is a complete web platform for managing teams, championships and training hours for Mauá Esports.
