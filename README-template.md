@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="/README-pt-template.md" target="_blank">🇧🇷 Português</a>
+  <a href="/README.md" target="_blank">🇧🇷 Português</a>
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="https://github.com/PedroSegantini/PI-MauaEsports/releases" target="_blank">📦 Downloads</a>
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
