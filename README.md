@@ -35,7 +35,7 @@
 ---
 
 <p align="center">
-  <video autoplay loop muted playsinline style="max-width: 100%; height: auto;">
+  <video autoplay loop muted playsinline">
     <source src="Frontend/public/videos/demonstracao Maua esports.mp4" type="video/mp4">
     Seu navegador não suporta o elemento de vídeo.
   </video>
