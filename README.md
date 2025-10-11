@@ -58,45 +58,6 @@ https://github.com/user-attachments/assets/d57ef51f-8cb4-4fd6-b6d3-dc5603385e09
 - **Autenticação:** Microsoft OAuth (passport-microsoft)
 - **Infraestrutura:** MongoDB Atlas, dotenv
 
-## 📖 Como Usar e Instalar
-
-### Pré-requisitos
-
-- Node.js 18+
-- VS Code (Live Server recomendado)
-
-### Passos
-
-1. Clone o repositório:
-   ```bash
-   git clone https://github.com/PedroSegantini/PI-MauaEsports.git
-   cd PI-MauaEsports
-   ```
-2. Configure o backend:
-   ```bash
-   cd backend
-   npm install
-   cp .env.example .env # Edite com suas credenciais se necessário
-   npm run dev
-   ```
-3. Inicie o frontend:
-   - Abra `Frontend/public/index.html` com Live Server ou servidor local.
-
-### Criando o primeiro admin
-
-1. Comente temporariamente a proteção da rota POST `/api/players` em `backend/index.js`.
-2. Crie o usuário admin via Postman ou similar:
-   ```json
-   {
-     "name": "Admin do Sistema",
-     "ra": "admin",
-     "discordId": "0",
-     "email": "admin@maua.br",
-     "password": "admin",
-     "role": "admin"
-   }
-   ```
-3. Desfaça o comentário para reativar a proteção.
 
 ## 🌐 Customização
 
@@ -116,39 +77,6 @@ O portal permite editar textos institucionais, cadastrar times, campeonatos e ge
 | PATCH  | /content/:containerId  | Atualiza conteúdo específico do site | Admin        |
 | GET    | /trainings             | Consulta horários de treino          | Logado/Admin |
 | PUT    | /trainings/:modalityId | Atualiza horários de treino          | Admin        |
-
-## 💻 Para Desenvolvedores
-
-```bash
-# 1. Clone o repositório
-git clone https://github.com/PedroSegantini/PI-MauaEsports.git
-
-# 2. Instale dependências do backend
-cd backend
-npm install
-
-# 3. Instale dependências do frontend (se necessário)
-cd ../Frontend
-npm install
-
-# 4. Rode o backend
-cd ../backend
-npm run dev
-
-# 5. Rode o frontend
-# Use Live Server ou abra index.html
-```
-
-## 📚 Perfeito para
-
-- **Gestores de times universitários**
-- **Jogadores e capitães**
-- **Admins de entidades esportivas**
-- **Desenvolvedores interessados em Node.js/Express/MongoDB**
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Envie um Pull Request ou abra uma issue.
 
 ## 📄 Licença
 
