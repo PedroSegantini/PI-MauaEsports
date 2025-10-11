@@ -5,7 +5,7 @@
 <h1 align="center">Mauá Esports Portal</h1>
 
 <p align="center">
-  <strong>Official portal for Mauá Esports</strong><br>
+  <strong>Mauá Esports Portal Academic Project</strong><br>
   <em>Team, championship and training hours management</em>
 </p>
 
@@ -58,45 +58,6 @@ https://github.com/user-attachments/assets/55f16509-0100-4e69-b79c-6ade5c883d21
 - **Authentication:** Microsoft OAuth (passport-microsoft)
 - **Infrastructure:** MongoDB Atlas, dotenv
 
-## 🚀 How to Install and Run
-
-### Prerequisites
-
-- Node.js 18+
-- VS Code (Live Server recommended)
-
-### Steps
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/PedroSegantini/PI-MauaEsports.git
-   cd PI-MauaEsports
-   ```
-2. Set up the backend:
-   ```bash
-   cd backend
-   npm install
-   cp .env.example .env # Edit with your credentials if needed
-   npm run dev
-   ```
-3. Start the frontend:
-   - Open `Frontend/public/index.html` with Live Server or a local server.
-
-### Creating the first admin
-
-1. Temporarily comment out the protection for the POST `/api/players` route in `backend/index.js`.
-2. Create the admin user via Postman or similar:
-   ```json
-   {
-     "name": "System Admin",
-     "ra": "admin",
-     "discordId": "0",
-     "email": "admin@maua.br",
-     "password": "admin",
-     "role": "admin"
-   }
-   ```
-3. Undo the comment to reactivate protection.
 
 ## 🌐 Customization
 
@@ -117,38 +78,6 @@ The portal allows you to edit institutional texts, register teams, championships
 | GET    | /trainings             | Query training schedules           | Logged/Admin |
 | PUT    | /trainings/:modalityId | Update training schedules          | Admin        |
 
-## 💻 For Developers
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/PedroSegantini/PI-MauaEsports.git
-
-# 2. Install backend dependencies
-cd backend
-npm install
-
-# 3. Install frontend dependencies (if needed)
-cd ../Frontend
-npm install
-
-# 4. Run the backend
-cd ../backend
-npm run dev
-
-# 5. Run the frontend
-# Use Live Server or open index.html
-```
-
-## 📚 Target Audience
-
-- **University team managers**
-- **Players and captains**
-- **Sports entity admins**
-- **Developers interested in Node.js/Express/MongoDB**
-
-## 🤝 Contributing
-
-Contributions are welcome! Submit a Pull Request or open an issue.
 
 ## 📄 License
 
