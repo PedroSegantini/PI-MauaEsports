@@ -12,13 +12,9 @@
 <p align="center">
   <a href="/README-template.md" target="_blank">🇺🇸 English</a>
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="https://github.com/PedroSegantini/PI-MauaEsports/releases" target="_blank">📦 Downloads</a>
-  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="https://github.com/PedroSegantini/PI-MauaEsports" target="_blank">📚 Versão Original</a>
   &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="https://github.com/PedroSegantini/PI-MauaEsports/issues" target="_blank">🐛 Reportar Bug</a>
-  &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="https://www.linkedin.com/in/pedrosegantini/" target="_blank">💼 LinkedIn</a>
 </p>
 
 <p align="center">
