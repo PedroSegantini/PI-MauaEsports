@@ -34,7 +34,7 @@
 
 ---
 
-Frontend/public/videos/demonstracao Maua esports.mp4
+[Frontend/public/videos/demonstracao Maua esports.mp4](https://github.com/PedroSegantini/PI-MauaEsports/blob/main/Frontend/public/videos/demonstracao%20Maua%20esports.mp4)
 
 **Portal Mauá Esports** é uma plataforma web completa para gestão dos times, campeonatos e horas de treino da entidade Mauá Esports.
 
